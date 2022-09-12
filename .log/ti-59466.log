@@ -1,0 +1,19 @@
+[05:50:27.797] Global cache location '/home/mysun/.cache/typescript/4.8', safe file path '/home/mysun/.emacs.d/.cache/lsp/npm/typescript/lib/node_modules/typescript/lib/typingSafeList.json', types map path /home/mysun/.emacs.d/.cache/lsp/npm/typescript/lib/node_modules/typescript/lib/typesMap.json
+[05:50:27.798] Processing cache location '/home/mysun/.cache/typescript/4.8'
+[05:50:27.798] Trying to find '/home/mysun/.cache/typescript/4.8/package.json'...
+[05:50:27.799] Loaded content of '/home/mysun/.cache/typescript/4.8/package.json': {"private":true,"dependencies":{"types-registry":"^0.1.608"}}
+[05:50:27.799] Loaded content of '/home/mysun/.cache/typescript/4.8/package-lock.json'
+[05:50:27.799] Finished processing cache location '/home/mysun/.cache/typescript/4.8'
+[05:50:27.799] Process id: 59473
+[05:50:27.799] NPM location: /usr/bin/npm (explicit '--npmLocation' not  provided)
+[05:50:27.799] validateDefaultNpmLocation: false
+[05:50:27.799] Npm config file: /home/mysun/.cache/typescript/4.8/package.json
+[05:50:27.800] Updating types-registry npm package...
+[05:50:27.800] Exec: /usr/bin/npm install --ignore-scripts types-registry@latest
+[05:50:28.561]     Succeeded. stdout:
+    
+    up to date, audited 2 packages in 513ms
+
+found 0 vulnerabilities
+
+[05:50:28.562] Updated types-registry npm package
