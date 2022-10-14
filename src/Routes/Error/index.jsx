@@ -1,4 +1,3 @@
-import { useRouteError } from "react-router-dom";
 import './style.css';
 
 function ErrorPage() {
