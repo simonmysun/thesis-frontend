@@ -3,7 +3,7 @@ import './style.css';
 function DeviceList() {
   return (
     <div>
-      App Device List
+      <span className="hidden">App Device List</span>
     </div>
   );
 }

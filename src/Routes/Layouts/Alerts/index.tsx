@@ -6,7 +6,7 @@ import './style.css';
 function LayoutAlerts() {
   return (
     <div>
-      App layout alerts
+      <span className="hidden">App layout alerts</span>
       <Outlet/>
     </div>
   );

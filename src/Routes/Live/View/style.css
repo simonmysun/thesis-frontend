@@ -1,8 +1,11 @@
+.list-view-container {
+    display: flex;
+}
+
 .heatmap-container {
     width: 800px;
     height: 600px;
 }
-.ridgeline-container {
-    width: 1200px;
-    height: 600px;
+.ordered-list-container {
+    flex-grow: 100;
 }

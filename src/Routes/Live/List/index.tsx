@@ -3,7 +3,7 @@ import './style.css';
 function LiveList() {
   return (
     <div>
-      App Live List
+      <span className="hidden">App Live List</span>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import './style.css';
 function AlertList() {
   return (
     <div>
-      App Alert List
+      <span className="hidden">App Alert List</span>
     </div>
   );
 }

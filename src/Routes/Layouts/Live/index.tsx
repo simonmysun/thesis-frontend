@@ -6,7 +6,7 @@ import './style.css';
 function LayoutLive() {
   return (
     <div>
-      App layout live
+      <span className="hidden">App layout live</span>
       <Outlet/>
     </div>
   );

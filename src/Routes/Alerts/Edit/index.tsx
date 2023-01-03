@@ -3,7 +3,7 @@ import './style.css';
 function AlertEdit() {
   return (
     <div>
-      App Alert Edit
+      <span className="hidden">App Alert Edit</span>
     </div>
   );
 }

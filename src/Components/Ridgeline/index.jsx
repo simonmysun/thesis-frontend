@@ -36,7 +36,7 @@ function Ridgeline(props) {
       const ts = new Date().valueOf();
       const newData = JSON.parse(message).map((x, i) => ({ tag: i, timestamp: ts, value: x }));
       updateData(prev => {
-        if(prev.length == 0) {
+        if(prev.length === 0) {
           return new Array(retention - 1).fill(0).map((tmp, t) => new Array(newData.length).fill(0).map((x, i) => ({ tag: i, timestamp: t, value: 0 }))).flat().concat(...newData)
         } else {
           return [...prev.slice((1 - retention) * newData.length), ...newData];
@@ -78,15 +78,6 @@ function Ridgeline(props) {
     const colorScale = d3.scaleSequential()
       .interpolator(d3.interpolateInferno)
       .domain([-1, 1]);
-    const tooltip = svg
-      .append("div")
-      .style("opacity", 0)
-      .attr("class", "tooltip")
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px");
     svg.selectAll()
       .data(currentData, d => d.timestamp + ':' + d.tag)
       .enter()
@@ -101,7 +92,7 @@ function Ridgeline(props) {
       .style("stroke-width", 4)
       .style("stroke", "none")
       .style("opacity", 0.8);
-  }, [currentData]);
+  }, [currentData, outerHeight, outerWidth]);
 
   return (
     <svg ref={componentRef} width={outerWidth} height={outerHeight} />

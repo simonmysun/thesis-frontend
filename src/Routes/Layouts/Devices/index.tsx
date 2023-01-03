@@ -6,7 +6,7 @@ import './style.css';
 function LayoutDevices() {
   return (
     <div>
-      App layout devices
+      <span className="hidden">App layout devices</span>
       <Outlet/>
     </div>
   );

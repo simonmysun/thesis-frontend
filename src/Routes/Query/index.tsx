@@ -3,7 +3,7 @@ import './style.css';
 function Query() {
   return (
     <div>
-      App Query
+      <span className="hidden">App Query</span>
     </div>
   );
 }

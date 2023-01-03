@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { useParams } from 'react-router-dom';
 
 import './style.css';
-import { Heatmap, Ridgeline } from './../../../Components';
+import { Heatmap, OrderedList } from './../../../Components';
 
 const serverScheme = 'ws';
 const serverHost = 'localhost';
@@ -13,16 +13,11 @@ const socket = io(serverUrl);
 
 const retention = 30;
 
-interface PlotObject {
-  tag: number,
-  timestamp: number,
-  value: number
-}
-
 function LiveView(props: any) {
   const { deviceID } = useParams();
-  const [ currentData, updateData ] = useState<PlotObject[]>([]);
-  const [ socketConnected, setConnected ] = useState(socket.connected);
+  const [currentData, updateData] = useState<VisDatum[]>([]);
+  const [newData, updateNewData] = useState<VisDatum[]>([]);
+  const [socketConnected, setConnected] = useState(socket.connected);
   useEffect(() => {
     socket.on('connect', () => {
       setConnected(true);
@@ -32,14 +27,11 @@ function LiveView(props: any) {
       setConnected(false);
     });
     socket.on('update:' + deviceID, (message) => {
-      const ts = new Date().valueOf();
-      const newData = JSON.parse(message).map((x: string, i: string) => ({ tag: i, timestamp: ts, value: x }));
-      updateData((prevData: PlotObject[]): PlotObject[] => {
-        if (prevData.length === 0) {
-          return new Array(retention - 1).fill(0).map((tmp, t) => new Array(newData.length).fill(0).map((x, i) => ({ tag: i, timestamp: t, value: 0 } as PlotObject))).flat().concat(...newData)
-        } else {
-          return [...prevData.slice((1 - retention) * newData.length), ...newData];
-        }
+      const ts = new Date();
+      const updates = JSON.parse(message).map((x: string, i: number) => ({ tag: i.toString(16), timestamp: ts, value: parseFloat(x) } as VisDatum));
+      updateNewData(updates);
+      updateData((prevData: VisDatum[]): VisDatum[] => {
+        return [...prevData.slice((1 - retention) * updates.length), ...updates];
       });
     });
     return () => {
@@ -52,13 +44,13 @@ function LiveView(props: any) {
     };
   }, [deviceID, socketConnected]);
   return (
-    <div>
-      App LiveView
+    <div className="list-view-container">
+      <span className="hidden">App LiveView</span>
       <div className="heatmap-container">
-        <Heatmap source={ deviceID } currentData={ currentData } retention={ retention } socketConnected={ socketConnected } />
+        <Heatmap currentData={currentData} retention={retention} socketConnected={socketConnected} />
       </div>
-      <div className="ridgeline-container">
-        <Ridgeline source="{ deviceID }" />
+      <div className="ordered-list-container">
+        <OrderedList list={newData}/>
       </div>
     </div>
   );

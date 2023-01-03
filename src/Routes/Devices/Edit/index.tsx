@@ -3,7 +3,7 @@ import './style.css';
 function DeviceEdit() {
   return (
     <div>
-      App Device Edit
+      <span className="hidden">App Device Edit</span>
     </div>
   );
 }
