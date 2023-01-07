@@ -6,8 +6,8 @@ import './style.css';
 import { Heatmap, OrderedList } from './../../../Components';
 
 const serverScheme = 'ws';
-const serverHost = 'localhost';
-const serverPort = 3001;
+const serverHost = 'thesis-frontend.makelove.expert';
+const serverPort = 80;
 const serverUrl = `${serverScheme}://${serverHost}:${serverPort}`
 const socket = io(serverUrl);
 
