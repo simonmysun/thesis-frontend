@@ -15,6 +15,7 @@ import ErrorPage from "./Routes/Error";
 import Layout from './Routes/Layouts/App';
 import LayoutAlerts from './Routes/Layouts/Alerts';
 import LayoutDevices from './Routes/Layouts/Devices';
+import LayoutQuery from './Routes/Layouts/Query';
 import LayoutLive from './Routes/Layouts/Live';
 import App from './Routes/App';
 import LiveList from './Routes/Live/List';
@@ -44,7 +45,10 @@ const router = createHashRouter(
                 <Route path=":alertID" element={<AlertEdit />} />
                 <Route path="new" element={<AlertEdit />} />
             </Route>
-            <Route path="query" element={<Query />} />
+            <Route path="query" element={<LayoutQuery />}>
+                <Route index element={<Query />} />
+                <Route path=":query" element={<Query />} />
+            </Route>
             <Route path="*" element={<ErrorPage />} />
         </Route>
     )
