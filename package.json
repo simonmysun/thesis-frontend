@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -12,7 +13,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/stats": "^0.16.30",
-    "bootstrap": "^5.2.1",
+    "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "canvas": "^2.11.0",
     "d3": "^7.6.1",
