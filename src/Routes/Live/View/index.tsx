@@ -6,8 +6,8 @@ import './style.css';
 import { Heatmap, OrderedList } from './../../../Components';
 
 const serverScheme = 'ws';
-const serverHost = 'thesis-frontend.makelove.expert';
-const serverPort = 80;
+const serverHost = '127.0.0.1';
+const serverPort = 3001;
 const serverUrl = `${serverScheme}://${serverHost}:${serverPort}`
 const socket = io(serverUrl);
 
@@ -19,6 +19,7 @@ function LiveView(props: any) {
   const [newData, updateNewData] = useState<VisDatum[]>([]);
   const [socketConnected, setConnected] = useState(socket.connected);
   useEffect(() => {
+    socket.connect();
     socket.on('connect', () => {
       setConnected(true);
       socket.emit('client hello', deviceID);
@@ -37,6 +38,7 @@ function LiveView(props: any) {
     return () => {
       if (socketConnected) {
         socket.emit('client goodbye', deviceID);
+        socket.disconnect();
       }
       socket.off('connect');
       socket.off('disconnect');

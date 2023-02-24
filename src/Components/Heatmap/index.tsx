@@ -32,6 +32,7 @@ function Heatmap(props: {
     document.body.appendChild(stats.dom);
     const svg = d3.select(componentRef.current as SVGElement);
     svg.selectAll('*').remove();
+    handleResize();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     stats.begin();
