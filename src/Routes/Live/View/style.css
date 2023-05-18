@@ -1,11 +1,9 @@
 .list-view-container {
-    display: flex;
 }
 
 .heatmap-container {
-    width: 800px;
     height: 600px;
 }
+
 .ordered-list-container {
-    flex-grow: 100;
 }

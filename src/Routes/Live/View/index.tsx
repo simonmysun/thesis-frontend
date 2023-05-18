@@ -115,12 +115,12 @@ function LiveView(props: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deviceID, connectStatus]);
   return (
-    <div className="list-view-container">
+    <div className="row">
       <span className="hidden">App LiveView</span>
-      <div className="heatmap-container">
+      <div className="col col-md-7 col-sm-12 heatmap-container">
         <Heatmap key={deviceID} currentData={currentData} connectStatus={connectStatus} timeWindow={timeWindow} />
       </div>
-      <div className="ordered-list-container">
+      <div className="col col-md-5 col-sm-12">
         <OrderedList list={newData} />
       </div>
       <Link to="/live/fake_datasource">fake_datasource</Link>,
