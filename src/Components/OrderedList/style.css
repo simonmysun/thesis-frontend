@@ -8,7 +8,7 @@
 }
 
 .ordered-list-item-tag {
-    width: 100px;
+    width: 150px;
     flex-grow: 1;
     white-space: nowrap;
     overflow: hidden;
