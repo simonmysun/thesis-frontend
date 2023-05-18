@@ -5,11 +5,10 @@ import Stats from 'stats.js';
 
 function Heatmap(props: {
   currentData: VisDatum[],
-  retention: number,
-  socketConnected: boolean,
+  connectStatus: string,
 }) {
   const componentRef = useRef<SVGSVGElement>(null);
-  const { currentData, retention, socketConnected } = props;
+  const { currentData, connectStatus } = props;
   const [outerWidth, setOuterWidth] = useState(0);
   const [outerHeight, setOuterHeight] = useState(0);
   const handleResize = useCallback(() => {
@@ -38,15 +37,12 @@ function Heatmap(props: {
     stats.begin();
     if (outerHeight > 0 && outerWidth > 0) {
       const svg = d3.select(componentRef.current as SVGElement);
-      if (socketConnected === false) {
+      if (connectStatus === 'Disconnected') {
         svg.append('text').text('Cannot establish connection to the stream server');
       } else {
         const x = d3.scaleTime()
-          .range([0, outerWidth - margin.left - margin.right])
-          .domain([
-            new Date((new Date().valueOf()) - (retention - 1) * 150),
-            new Date((new Date().valueOf()) + (1) * 150)
-          ]);
+          .range([0, outerWidth - margin.left - margin.right - outerWidth / 60])
+          .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - 60000)), d3.max(currentData, d => d.timestamp)] as Date[]);
         const xAxis = d3.axisBottom<Date>(x).tickFormat(d3.timeFormat('%X'));
         svg.selectAll('*').remove();
         svg.append('g')
@@ -75,21 +71,25 @@ function Heatmap(props: {
           .attr('class', 'heat')
           .attr('x', d => x(d.timestamp))
           .attr('y', d => y(d.tag)!)
-          .attr('width', outerWidth / retention)
+          .attr('width', outerWidth / 60)
           .attr('height', y.bandwidth())
           .style('fill', d => d3.scaleSequential()
             .interpolator(d3.interpolateInferno)
             .domain([0, 1])(d.value))
           .style('stroke-width', 4)
           .style('stroke', 'none')
-          .style('opacity', 0.8);
+          .style('opacity', 0.8)
+          .attr('transform`', null)
+          // .transition()
+          // .duration(1000)
+          // .attr('transform', `translate(${- outerWidth / 60})`);
       }
     }
     stats.end();
-  }, [currentData, outerWidth, outerHeight, socketConnected, retention, stats]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentData, outerWidth, outerHeight, connectStatus, stats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <svg ref={componentRef} width={outerWidth} height={outerHeight} />
+    <svg ref={componentRef} width={outerWidth} height={outerHeight} role="img" />
   );
 }
 

@@ -17,6 +17,7 @@
     "bootstrap-icons": "^1.10.4",
     "canvas": "^2.11.2",
     "d3": "^7.8.4",
+    "mqtt": "^4.3.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-flip-toolkit": "^7.0.17",

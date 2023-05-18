@@ -9,9 +9,7 @@ test('renders heatmap', () => {
       value: 0.3
     }
   ];
-  const retention = 30;
-  const socketConnected = true;
-  render(<Heatmap currentData={currentData} retention={retention} socketConnected={socketConnected}/>);
-  const linkElement = screen.getAllByText(/./i)[0];
-  expect(linkElement).toBeInTheDocument();
+  const connectStatus = 'Connected';
+  render(<Heatmap currentData={currentData} connectStatus={connectStatus}/>);
+  expect(screen.getByRole('img')).toBeInTheDocument();
 });
