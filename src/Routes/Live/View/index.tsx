@@ -16,6 +16,8 @@ const connectionOptions = {
   url: ''
 };
 
+const timeWindow = 60;
+
 connectionOptions.url = `${connectionOptions.scheme}://${connectionOptions.host}:${connectionOptions.port}${connectionOptions.path}`;
 
 function LiveView(props: any) {
@@ -46,6 +48,7 @@ function LiveView(props: any) {
         client.end();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     console.log('effect listeners');
@@ -65,20 +68,26 @@ function LiveView(props: any) {
         setConnectStatus('Reconnecting');
       });
       client.on('message', (topic: string, payload: object) => {
+        if(topic !== `tele/indoor_sound_classification/${deviceID}/state`) {
+          return;
+        }
         const message = JSON.parse(payload.toString());
         const timestamp: Date = message.timestamp;
         const updates = Object.keys(message.prediction).map((tag: string) => ({ tag: tag, timestamp: timestamp, value: message.prediction[tag] } as VisDatum));
         updateNewData(updates);
         updateData((prevData: VisDatum[]): VisDatum[] => {
-          return [...prevData.filter(d => d.timestamp > new Date((new Date(Date.now()).getTime() - 60000))), ...updates];
+          return [...prevData.filter(d => d.timestamp > new Date((new Date(Date.now()).getTime() - timeWindow * 1000))), ...updates];
         });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client]);
   useEffect(() => {
     console.log('effect subscription');
     const topic = `tele/indoor_sound_classification/${deviceID}/state`;
-    if (client) {
+    if (client === null) {
+      console.log('client not found');
+    } else {
       client.subscribe(topic, { qos: 0 }, (error) => {
         if (error) {
           console.log('Subscribe to topics error', error);
@@ -86,27 +95,30 @@ function LiveView(props: any) {
         }
         console.log(`[mqtt] subscribed topic=${topic}`);
       });
-    } else {
-      console.log('client not found');
     }
     return () => {
       console.log('effect subscription cleanup');
-      client?.unsubscribe(topic, (error: Error) => {
-        if (error) {
-          console.log('Unsubscribe error', error);
-          return;
-        }
-        console.log(`[mqtt] unsubsribed topic=${topic}`);
-      });
+      if (client === null) {
+        console.log('client not found');
+      } else {
+        client.unsubscribe(topic, (error: Error) => {
+          if (error) {
+            console.log('Unsubscribe error', error);
+            return;
+          }
+          console.log(`[mqtt] unsubsribed topic=${topic}`);
+        });
+      }
       updateData([]);
       updateNewData([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deviceID, connectStatus]);
   return (
     <div className="list-view-container">
       <span className="hidden">App LiveView</span>
       <div className="heatmap-container">
-        <Heatmap key={deviceID} currentData={currentData} connectStatus={connectStatus} />
+        <Heatmap key={deviceID} currentData={currentData} connectStatus={connectStatus} timeWindow={timeWindow} />
       </div>
       <div className="ordered-list-container">
         <OrderedList list={newData} />

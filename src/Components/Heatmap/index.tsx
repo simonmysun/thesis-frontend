@@ -6,9 +6,10 @@ import Stats from 'stats.js';
 function Heatmap(props: {
   currentData: VisDatum[],
   connectStatus: string,
+  timeWindow: number
 }) {
   const componentRef = useRef<SVGSVGElement>(null);
-  const { currentData, connectStatus } = props;
+  const { currentData, connectStatus, timeWindow } = props;
   const [outerWidth, setOuterWidth] = useState(0);
   const [outerHeight, setOuterHeight] = useState(0);
   const handleResize = useCallback(() => {
@@ -42,7 +43,7 @@ function Heatmap(props: {
       } else {
         const x = d3.scaleTime()
           .range([0, outerWidth - margin.left - margin.right - outerWidth / 60])
-          .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - 60000)), d3.max(currentData, d => d.timestamp)] as Date[]);
+          .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - timeWindow * 1000)), d3.max(currentData, d => d.timestamp)] as Date[]);
         const xAxis = d3.axisBottom<Date>(x).tickFormat(d3.timeFormat('%X'));
         svg.selectAll('*').remove();
         svg.append('g')
