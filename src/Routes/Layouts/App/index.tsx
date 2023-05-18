@@ -43,7 +43,7 @@ function Layout() {
               </ul>
             </div>
           </nav>
-          <main className={"col-md-9 ms-sm-auto col-lg-10 px-md-4"}>
+          <main className={"col-md-9 ms-sm-auto col-lg-10 px-md-4 p-3"}>
             <Outlet />
           </main>
           <footer className={"text-muted py-5 col-md-9 ms-sm-auto col-lg-10 px-md-4"}>
