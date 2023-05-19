@@ -122,7 +122,7 @@ function Ridgeline(props: {
           .attr("stroke", "black")
           .attr("d", d => line(d.values as any));
 
-        const chart = svg.node();
+        // const chart = svg.node();
       }
     }
     stats.end();
