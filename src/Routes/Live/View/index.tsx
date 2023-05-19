@@ -107,7 +107,7 @@ function LiveView(props: any) {
       <h2>{ deviceID }</h2>
       <hr/>
       <div className="col col-md-7 col-sm-12 heatmap-container">
-        <Heatmap key={ deviceID } currentData={ currentData } connectStatus={ connectStatus } sampleRate={ sampleRate } />
+        <Ridgeline key={ deviceID } currentData={ currentData } connectStatus={ connectStatus } sampleRate={ sampleRate } />
       </div>
       <div className="col col-md-5 col-sm-12">
         <OrderedList list={ newData } />

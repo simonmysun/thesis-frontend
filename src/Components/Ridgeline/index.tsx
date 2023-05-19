@@ -3,6 +3,8 @@ import * as d3 from 'd3';
 import './style.css';
 import Stats from 'stats.js';
 
+const overlap = 4;
+
 function Ridgeline(props: {
   currentData: VisDatum[],
   connectStatus: string,
@@ -25,7 +27,7 @@ function Ridgeline(props: {
     }
   }, [componentRef, handleResize]);
   const [stats] = useState(new Stats());
-  const margin = { top: 80, right: 25, bottom: 30, left: 40 };
+  const margin = { top: 60, right: 125, bottom: 25, left: -15 };
   useEffect(() => {
     stats.dom.style.cssText = 'position: absolute; bottom: 0px; left: 0px; z-index: 100000';
     stats.showPanel(1);
@@ -38,52 +40,89 @@ function Ridgeline(props: {
     stats.begin();
     if (outerHeight > 0 && outerWidth > 0) {
       const svg = d3.select(componentRef.current as SVGElement);
+      svg.selectAll("*").remove();
       if (connectStatus === 'Disconnected') {
         svg.append('text').text('Cannot establish connection to the stream server');
       } else {
+        currentData.sort((a, b) => (new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()));
+        const data: { tag: string, values: number[] }[] = [];
+        const dates: Date[] = [];
+        const tag2id: { [tag: string]: number } = {};
+        let idx = 0;
+        for (let d in currentData) {
+          if (currentData[d].tag in tag2id) {
+            data[tag2id[currentData[d].tag]].values.push(currentData[d].value)
+          } else {
+            tag2id[currentData[d].tag] = idx;
+            idx += 1;
+            data[tag2id[currentData[d].tag]] = {
+              tag: currentData[d].tag,
+              values: [currentData[d].value],
+            };
+          }
+          if (dates.length === 0) {
+            dates.push(currentData[d].timestamp);
+          } else if (currentData[d].timestamp > dates[dates.length - 1]) {
+            dates.push(currentData[d].timestamp);
+          }
+        }
         const x = d3.scaleTime()
-          .range([0, outerWidth - margin.left - margin.right - outerWidth / 60])
-          .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - sampleRate * 60)), d3.max(currentData, d => d.timestamp)] as Date[]);
-        const xAxis = d3.axisBottom<Date>(x).tickFormat(d3.timeFormat('%X'));
-        svg.selectAll('*').remove();
-        svg.append('g')
-          .attr('class', 'x axis')
-          .attr('transform', `translate(0, ${outerHeight - margin.top - margin.bottom + 1})`)
-          .call(xAxis)
-          .selectAll('text')
-          .attr('transform', 'translate(0, 5) rotate(90)')
-          .style('text-anchor', 'start');
-        const y = d3.scaleBand()
-          .range([outerHeight - margin.top - margin.bottom, 0])
-          .domain(d3.map(currentData, d => d.tag));
-        const yAxis = d3.axisRight(y).tickSize(0);
-        svg.append('g')
-          .attr('class', 'y axis')
-          .attr('transform', `translate(${outerWidth - margin.left - margin.right + 3}, 0)`)
+          .domain(([new Date(new Date().getTime() - 60 * sampleRate), new Date()]))
+          .range([margin.left, outerWidth - margin.right]);
+        const y = d3.scalePoint()
+          .domain(data.map(d => d.tag))
+          .range([margin.top, outerHeight - margin.bottom]);
+        const z = d3.scaleLinear()
+          .domain([0, 1]).nice()
+          .range([0, -overlap * y.step()]);
+        const xAxis = (g: any) => g
+          .attr("transform", `translate(0,${outerHeight - margin.bottom})`)
+          .call(d3.axisBottom(x)
+            .ticks(outerWidth / 60)
+            .tickSizeOuter(0));
+        const yAxis = (g: any) => g
+          .attr("transform", `translate(${outerWidth - margin.right},0)`)
+          .call(d3.axisRight(y).tickSize(0).tickPadding(4))
+          .call((g: any) => g.select(".domain").remove());
+        const area = d3.area()
+          .curve(d3.curveBasis)
+          .defined((d: any) => !isNaN(d))
+          .x((d, i) => x(dates[i]))
+          .y0(0)
+          .y1((d: any) => z(d));
+        const line = area.lineY1();
+
+        const svg = d3.select(componentRef.current as SVGElement);
+
+        svg.append("g")
+          .call(xAxis);
+
+        svg.append("g")
           .call(yAxis);
-        svg.append('rect')
-          .attr('width', outerWidth - margin.left - margin.right)
-          .attr('height', outerHeight - margin.top - margin.bottom)
-          .attr('fill', '#000');
-        svg.append('g').attr('class', 'heat-group').selectAll()
-          .data(currentData)
-          .enter()
-          .append('rect')
-          .attr('class', 'heat')
-          .attr('x', d => x(d.timestamp))
-          .attr('y', d => y(d.tag)!)
-          .attr('width', outerWidth / 60)
-          .attr('height', y.bandwidth())
-          .style('fill', d => d3.scaleSequential()
-            .interpolator(d3.interpolateInferno)
-            .domain([0, 1])(d.value))
-          .style('stroke-width', 4)
-          .style('stroke', 'none')
-          .style('opacity', 0.8)
-          .attr('transform`', null)
-          // .transition()
-          // .duration(1000)
-          // .attr('transform', `translate(${- outerWidth / 60})`);
+
+        const group = svg.append("g")
+          .selectAll("g")
+          .data(data)
+          .join("g")
+          .attr("transform", d => {
+            const tY = y(d.tag);
+            if (tY) {
+              return `translate(0,${tY + 1})`;
+            } else {
+              return '';
+            }
+          });
+
+        group.append("path")
+          .attr("fill", "#ddd")
+          .attr("d", d => area(d.values as any));
+
+        group.append("path")
+          .attr("fill", "none")
+          .attr("stroke", "black")
+          .attr("d", d => line(d.values as any));
+
+        const chart = svg.node();
       }
     }
     stats.end();
