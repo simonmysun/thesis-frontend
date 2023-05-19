@@ -22,7 +22,6 @@
     "react-dom": "^18.2.0",
     "react-flip-toolkit": "^7.0.17",
     "react-router-dom": "^6.10.0",
-    "socket.io-client": "^4.6.1",
     "stats.js": "^0.17.0",
     "typescript": "^5.0.3",
     "web-vitals": "^3.3.0"
