@@ -1,12 +1,13 @@
+import { v4 } from 'uuid';
 
 const connectionOptions = {
   scheme: 'ws',
-  host: 'mqtt-admin-mys-karlsruhe-0.makelove.expert',
+  host: 'thesis-frontend.makelove.expert',
   port: 80,
   path: '/mqtt',
   username: 'test',
   password: 'TuC',
-  clientId: () => `frontend_${crypto.randomUUID()}`,
+  clientId: () => `frontend_${v4()}`,
   url: ''
 };
 connectionOptions.url = `${connectionOptions.scheme}://${connectionOptions.host}:${connectionOptions.port}${connectionOptions.path}`;
