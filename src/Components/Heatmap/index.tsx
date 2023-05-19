@@ -38,6 +38,7 @@ function Heatmap(props: {
     stats.begin();
     if (outerHeight > 0 && outerWidth > 0) {
       const svg = d3.select(componentRef.current as SVGElement);
+      svg.selectAll("*").remove();
       if (connectStatus === 'Disconnected') {
         svg.append('text').text('Cannot establish connection to the stream server');
       } else {
