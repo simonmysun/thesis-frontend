@@ -128,7 +128,7 @@ function Ridgeline(props: {
     stats.end();
   }, [currentData, outerWidth, outerHeight, connectStatus, stats]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <svg ref={componentRef} width={outerWidth} height={outerHeight} role="img" />
+    <svg ref={ componentRef } width={ outerWidth } height={ outerHeight } role="img" />
   );
 }
 
