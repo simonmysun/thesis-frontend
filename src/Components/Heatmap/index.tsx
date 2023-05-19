@@ -6,10 +6,10 @@ import Stats from 'stats.js';
 function Heatmap(props: {
   currentData: VisDatum[],
   connectStatus: string,
-  timeWindow: number
+  sampleRate: number
 }) {
   const componentRef = useRef<SVGSVGElement>(null);
-  const { currentData, connectStatus, timeWindow } = props;
+  const { currentData, connectStatus, sampleRate } = props;
   const [outerWidth, setOuterWidth] = useState(0);
   const [outerHeight, setOuterHeight] = useState(0);
   const handleResize = useCallback(() => {
@@ -27,7 +27,7 @@ function Heatmap(props: {
   const [stats] = useState(new Stats());
   const margin = { top: 80, right: 25, bottom: 30, left: 40 };
   useEffect(() => {
-    stats.dom.style.cssText = 'position: absolute; top: 0px; right: 0px;';
+    stats.dom.style.cssText = 'position: absolute; bottom: 0px; left: 0px; z-index: 100000';
     stats.showPanel(1);
     document.body.appendChild(stats.dom);
     const svg = d3.select(componentRef.current as SVGElement);
@@ -43,7 +43,7 @@ function Heatmap(props: {
       } else {
         const x = d3.scaleTime()
           .range([0, outerWidth - margin.left - margin.right - outerWidth / 60])
-          .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - timeWindow * 1000)), d3.max(currentData, d => d.timestamp)] as Date[]);
+          .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - sampleRate * 60)), d3.max(currentData, d => d.timestamp)] as Date[]);
         const xAxis = d3.axisBottom<Date>(x).tickFormat(d3.timeFormat('%X'));
         svg.selectAll('*').remove();
         svg.append('g')

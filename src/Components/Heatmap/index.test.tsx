@@ -10,6 +10,6 @@ test('renders heatmap', () => {
     }
   ];
   const connectStatus = 'Connected';
-  render(<Heatmap currentData={currentData} connectStatus={connectStatus} timeWindow={60}/>);
+  render(<Heatmap currentData={currentData} connectStatus={connectStatus} sampleRate={1000}/>);
   expect(screen.getByRole('img')).toBeInTheDocument();
 });
