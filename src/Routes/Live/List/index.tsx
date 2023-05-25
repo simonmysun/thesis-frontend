@@ -71,23 +71,25 @@ function LiveList() {
         if (match !== null) {
           if (match.groups?.deviceId) {
             const deviceId = match.groups.deviceId;
-            setDeviceStatus(prevDeviceStatus => {
-              prevDeviceStatus[deviceId].status = 'bg-success';
-              const message = JSON.parse(payload.toString());
-              prevDeviceStatus[deviceId].lastUpdated = new Date(message.timestamp);
-              let max = 0;
-              let maxId = 'Not detected';
-              for (let p in message.prediction) {
-                if (message.prediction[p] > max) {
-                  if (message.prediction[p] > 0.5) {
-                    max = message.prediction[p];
-                    maxId = p;
+            if (deviceId in deviceStatus) {
+              setDeviceStatus(prevDeviceStatus => {
+                prevDeviceStatus[deviceId].status = 'bg-success';
+                const message = JSON.parse(payload.toString());
+                prevDeviceStatus[deviceId].lastUpdated = new Date(message.timestamp);
+                let max = 0;
+                let maxId = 'Not detected';
+                for (let p in message.prediction) {
+                  if (message.prediction[p] > max) {
+                    if (message.prediction[p] > 0.5) {
+                      max = message.prediction[p];
+                      maxId = p;
+                    }
                   }
                 }
-              }
-              prevDeviceStatus[deviceId].prediction = maxId;
-              return { ...prevDeviceStatus };
-            });
+                prevDeviceStatus[deviceId].prediction = maxId;
+                return { ...prevDeviceStatus };
+              });
+            }
           }
         }
       });
@@ -118,9 +120,9 @@ function LiveList() {
     const timer = setInterval(() => {
       setDeviceStatus(prevDeviceStatus => {
         for (let deviceId in prevDeviceStatus) {
-          if(prevDeviceStatus[deviceId].lastUpdated) {
+          if (prevDeviceStatus[deviceId].lastUpdated) {
             const lastUpdated = prevDeviceStatus[deviceId].lastUpdated;
-            if(new Date().getTime() - lastUpdated.getTime() > 5000) {
+            if (new Date().getTime() - lastUpdated.getTime() > 5000) {
               prevDeviceStatus[deviceId].status = 'bg-danger';
               prevDeviceStatus[deviceId].prediction = 'Disconnected';
             }
@@ -129,7 +131,7 @@ function LiveList() {
         return { ...prevDeviceStatus };
       });
     }, 100);
-    return () =>{
+    return () => {
       clearInterval(timer);
     };
   });
@@ -139,16 +141,16 @@ function LiveList() {
       <h2>List of Device(s)</h2>
       <hr />
       <div className="list-group">
-        { deviceList.map(device => (
-          <Link to={ `/live/${device.name}` } key={ device.name } className={ `list-group-item list-group-item-action d-flex justify-content-between align-items-start ${deviceStatus[device.name].status === 'bg-success' ? '' : 'disabled'}` } tabIndex={ deviceStatus[device.name].status === 'bg-success' ? undefined : -1 } aria-disabled={ deviceStatus[device.name].status === 'bg-success' ? undefined : "true" }>
+        {deviceList.map(device => (
+          <Link to={`/live/${device.name}`} key={device.name} className={`list-group-item list-group-item-action d-flex justify-content-between align-items-start ${deviceStatus[device.name].status === 'bg-success' ? '' : 'disabled'}`} tabIndex={deviceStatus[device.name].status === 'bg-success' ? undefined : -1} aria-disabled={deviceStatus[device.name].status === 'bg-success' ? undefined : "true"}>
             <div className="ms-2 me-auto">
               <div className="fw-bold">
-                <span className={`position-absolute top-50 start-0 translate-middle p-2 border border-light rounded-circle ${deviceStatus[device.name].status}`}></span> { device.name }</div>
+                <span className={`position-absolute top-50 start-0 translate-middle p-2 border border-light rounded-circle ${deviceStatus[device.name].status}`}></span> {device.name}</div>
               {device.comment}
             </div>
-            <span className="badge bg-light text-dark rounded-pill">{ deviceStatus[device.name].prediction }</span>
+            <span className="badge bg-light text-dark rounded-pill">{deviceStatus[device.name].prediction}</span>
           </Link>
-        )) }
+        ))}
       </div>
     </div>
   );
