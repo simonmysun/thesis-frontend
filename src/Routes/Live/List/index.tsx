@@ -71,25 +71,26 @@ function LiveList() {
         if (match !== null) {
           if (match.groups?.deviceId) {
             const deviceId = match.groups.deviceId;
-            if (deviceId in deviceStatus) {
-              setDeviceStatus(prevDeviceStatus => {
-                prevDeviceStatus[deviceId].status = 'bg-success';
-                const message = JSON.parse(payload.toString());
-                prevDeviceStatus[deviceId].lastUpdated = new Date(message.timestamp);
-                let max = 0;
-                let maxId = 'Not detected';
-                for (let p in message.prediction) {
-                  if (message.prediction[p] > max) {
-                    if (message.prediction[p] > 0.5) {
-                      max = message.prediction[p];
-                      maxId = p;
-                    }
+            setDeviceStatus(prevDeviceStatus => {
+              const message = JSON.parse(payload.toString());
+              prevDeviceStatus[deviceId] = {
+                status: 'bg-success',
+                prediction: deviceId in prevDeviceStatus ? prevDeviceStatus[deviceId].prediction : '',
+                lastUpdated: new Date(message.timestamp),
+              }
+              let max = 0;
+              let maxId = 'Not detected';
+              for (let p in message.prediction) {
+                if (message.prediction[p] > max) {
+                  if (message.prediction[p] > 0.5) {
+                    max = message.prediction[p];
+                    maxId = p;
                   }
                 }
-                prevDeviceStatus[deviceId].prediction = maxId;
-                return { ...prevDeviceStatus };
-              });
-            }
+              }
+              prevDeviceStatus[deviceId].prediction = maxId;
+              return { ...prevDeviceStatus };
+            });
           }
         }
       });
