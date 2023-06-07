@@ -5,7 +5,7 @@ import * as mqtt from 'mqtt/dist/mqtt';
 import './style.css';
 import { Heatmap, Ridgeline, OrderedList } from './../../../Components';
 
-import { connectionOptions } from './../../../API';
+import { mqttApi } from './../../../API';
 
 function LiveView(props: any) {
   const { deviceID } = useParams();
@@ -17,15 +17,16 @@ function LiveView(props: any) {
   useEffect(() => {
     // console.log('effect connection');
     setConnectStatus('Connecting');
+    const settings = mqttApi.getSettings();
     const mqttOption = {
       clean: true,
       connectTimeout: 4000,
-      clientId: connectionOptions.clientId(),
-      username: connectionOptions.username,
-      password: connectionOptions.password
+      clientId: settings.mqttClientId,
+      username: settings.mqttUsername,
+      password: settings.mqttPassword
     };
     // console.log(`[mqtt] connecting with clientId=${mqttOption.clientId}`);
-    setClient(mqtt.connect(connectionOptions.url, mqttOption));
+    setClient(mqtt.connect(settings.mqttUrl, mqttOption));
     return () => {
       // console.log('effect connection cleanup');
       // console.log(client);
@@ -47,7 +48,7 @@ function LiveView(props: any) {
         setConnectStatus('Connected');
       });
       client.on('error', (err: Error) => {
-        // console.error('Connection error: ', err);
+        console.error('Connection error: ', err);
         client.end();
       });
       client.on('reconnect', () => {

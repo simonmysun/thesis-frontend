@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import * as mqtt from 'mqtt/dist/mqtt';
 import './style.css';
 
-import { backendApi, connectionOptions } from './../../../API';
-
-connectionOptions.url = `${connectionOptions.scheme}://${connectionOptions.host}:${connectionOptions.port}${connectionOptions.path}`;
+import { backendApi, mqttApi } from './../../../API';
 
 function LiveList() {
   const [deviceList, setDeviceList] = useState<{ name: string, comment: string }[]>([]);
@@ -39,14 +37,15 @@ function LiveList() {
   }, []);
   useEffect(() => {
     setConnectStatus('Connecting');
+    const settings = mqttApi.getSettings();
     const mqttOption = {
       clean: true,
       connectTimeout: 4000,
-      clientId: connectionOptions.clientId(),
-      username: connectionOptions.username,
-      password: connectionOptions.password
+      clientId: settings.mqttClientId,
+      username: settings.mqttUsername,
+      password: settings.mqttPassword
     };
-    setClient(mqtt.connect(connectionOptions.url, mqttOption));
+    setClient(mqtt.connect(settings.mqttUrl, mqttOption));
     return () => {
       if (client === null) {
       } else {
@@ -61,6 +60,7 @@ function LiveList() {
         setConnectStatus('Connected');
       });
       client.on('error', (err: Error) => {
+        console.error(err);
         client.end();
       });
       client.on('reconnect', () => {

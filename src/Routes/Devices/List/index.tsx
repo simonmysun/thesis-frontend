@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { backendApi, connectionOptions } from './../../../API';
+import { backendApi } from './../../../API';
 
 import './style.css';
 

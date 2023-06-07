@@ -1,16 +1,26 @@
 import { v4 } from 'uuid';
 
-const connectionOptions = {
-  scheme: 'wss',
-  host: 'thesis-frontend.makelove.expert',
-  port: 443,
-  path: '/mqtt',
-  username: 'test',
-  password: 'TuC',
-  clientId: () => `frontend_${v4()}`,
-  url: ''
+const mqttApi = {
+  getSettings: function (): { mqttUsername: string, mqttPassword: string, mqttClientId: string, mqttUrl: string } {
+    const stored = localStorage.getItem('settings');
+    if(stored === null) {
+      return {
+        mqttUsername: '',
+        mqttPassword: '',
+        mqttClientId: `isc_frontend_${v4()}`,
+        mqttUrl: ''
+      };
+    } else {
+      const settings = JSON.parse(stored);
+      return {
+        mqttUsername: settings.mqttUsername,
+        mqttPassword: settings.mqttPassword,
+        mqttClientId: `isc_frontend_${v4()}`,
+        mqttUrl: settings.mqttUrl
+      };
+    }
+  }
 };
-connectionOptions.url = `${connectionOptions.scheme}://${connectionOptions.host}:${connectionOptions.port}${connectionOptions.path}`;
 
 const backendApi = {
   devices: {
@@ -70,6 +80,6 @@ const backendApi = {
 };
 
 export {
-  connectionOptions,
-  backendApi, 
+  mqttApi,
+  backendApi,
 };
