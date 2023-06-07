@@ -17,6 +17,7 @@ import LayoutAlerts from './Routes/Layouts/Alerts';
 import LayoutDevices from './Routes/Layouts/Devices';
 import LayoutQuery from './Routes/Layouts/Query';
 import LayoutLive from './Routes/Layouts/Live';
+import LayoutSettings from './Routes/Layouts/Settings';
 import App from './Routes/App';
 import LiveList from './Routes/Live/List';
 import LiveView from './Routes/Live/View';
@@ -25,6 +26,7 @@ import DeviceEdit from './Routes/Devices/Edit';
 import AlertList from './Routes/Alerts/List';
 import AlertEdit from './Routes/Alerts/Edit';
 import Query from './Routes/Query';
+import Settings from './Routes/Settings';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -48,6 +50,10 @@ const router = createHashRouter(
             <Route path="query" element={<LayoutQuery />}>
                 <Route index element={<Query />} />
                 <Route path=":query" element={<Query />} />
+            </Route>
+            <Route path="settings" element={<LayoutSettings />}>
+                <Route index element={<Settings />} />
+                <Route path=":query" element={<Settings />} />
             </Route>
             <Route path="*" element={<ErrorPage />} />
         </Route>

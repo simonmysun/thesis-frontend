@@ -1,9 +1,9 @@
 import { v4 } from 'uuid';
 
 const connectionOptions = {
-  scheme: 'ws',
+  scheme: 'wss',
   host: 'thesis-frontend.makelove.expert',
-  port: 80,
+  port: 443,
   path: '/mqtt',
   username: 'test',
   password: 'TuC',

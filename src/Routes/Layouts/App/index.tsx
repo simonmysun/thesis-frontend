@@ -40,6 +40,9 @@ function Layout() {
                 <li className={"nav-item"}>
                   <NavLink to="/query" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-database"}></i> Query Historical Data</NavLink>
                 </li>
+                <li className={"nav-item"}>
+                  <NavLink to="/settings" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-sliders"}></i> Settings</NavLink>
+                </li>
               </ul>
             </div>
           </nav>

@@ -6,7 +6,7 @@ function OrderedList(props: {
 }) {
   const { list } = props;
   list.sort((itemA, itemB) => itemB.value - itemA.value);
-  list.length = 7;
+  list.length = 10;
   return (
     <Flipper flipKey={list.map(item => item.tag).join(',')} spring={{ stiffness: 15000, damping: 250 }}>
       <div className="ordered-list">
