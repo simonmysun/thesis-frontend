@@ -36,16 +36,15 @@ const router = createHashRouter(
             <Route index element={<App />} />
             <Route path="live" element={<LayoutLive />}>
                 <Route index element={<LiveList />} />
-                <Route path=":deviceID" element={<LiveView />} />
+                <Route path=":deviceId" element={<LiveView />} />
             </Route>
-            <Route path="devices" element={<LayoutDevices />}>
+            <Route path="device" element={<LayoutDevices />}>
                 <Route index element={<DeviceList />} />
-                <Route path="new" element={<DeviceEdit />} />
+                <Route path=":deviceId" element={<DeviceEdit />} />
             </Route>
             <Route path="alert" element={<LayoutAlerts />}>
                 <Route index element={<AlertList />} />
-                <Route path=":alertID" element={<AlertEdit />} />
-                <Route path="new" element={<AlertEdit />} />
+                <Route path=":alertId" element={<AlertEdit />} />
             </Route>
             <Route path="query" element={<LayoutQuery />}>
                 <Route index element={<Query />} />

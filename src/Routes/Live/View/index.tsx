@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import * as mqtt from 'mqtt/dist/mqtt';
 
 import './style.css';
-import { Heatmap, Ridgeline, OrderedList } from './../../../Components';
+import { Ridgeline, OrderedList } from './../../../Components';
 
 import { mqttApi } from './../../../API';
 
 function LiveView(props: any) {
-  const { deviceID } = useParams();
+  const { deviceId } = useParams();
   const [ currentData, updateData ] = useState<VisDatum[]>([]);
   const [ newData, updateNewData ] = useState<VisDatum[]>([]);
   const [ sampleRate, setSampleRate ] = useState(0);
@@ -56,7 +56,7 @@ function LiveView(props: any) {
         setConnectStatus('Reconnecting');
       });
       client.on('message', (topic: string, payload: object) => {
-        if(topic !== `tele/indoor_sound_classification/${deviceID}/state`) {
+        if(topic !== `tele/indoor_sound_classification/${deviceId}/state`) {
           return;
         }
         const message = JSON.parse(payload.toString());
@@ -73,7 +73,7 @@ function LiveView(props: any) {
   }, [client]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     // console.log('effect subscription');
-    const topic = `tele/indoor_sound_classification/${deviceID}/state`;
+    const topic = `tele/indoor_sound_classification/${deviceId}/state`;
     if (client === null) {
       // console.log('client not found');
     } else {
@@ -101,14 +101,14 @@ function LiveView(props: any) {
       updateData([]);
       updateNewData([]);
     }
-  }, [deviceID, connectStatus]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [deviceId, connectStatus]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="row">
       <span className="hidden">App LiveView</span>
-      <h2>{ deviceID }</h2>
+      <h2>{ deviceId }</h2>
       <hr/>
       <div className="col col-md-7 col-sm-12 heatmap-container">
-        <Ridgeline key={ deviceID } currentData={ currentData } connectStatus={ connectStatus } sampleRate={ sampleRate } />
+        <Ridgeline key={ deviceId } currentData={ currentData } connectStatus={ connectStatus } sampleRate={ sampleRate } />
       </div>
       <div className="col col-md-5 col-sm-12">
         <OrderedList list={ newData } />

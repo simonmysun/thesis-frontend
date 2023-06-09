@@ -4,7 +4,7 @@ import { backendApi } from './../../../API';
 import './style.css';
 
 function AlertList() {
-  const [alertList, setAlertList] = useState<{ name: string, comment: string, lastFired: Date }[]>([]);
+  const [alertList, setAlertList] = useState<AlertObject[]>([]);
   useEffect(() => {
     backendApi.alerts.list().then(res => {
       setAlertList(res);
@@ -29,9 +29,9 @@ function AlertList() {
             <tr key={ alert.name }>
               <td>{ alert.name }</td>
               <td>{ alert.comment }</td>
-              <td>{ alert.lastFired.toString() }</td>
+              <td>{ alert.lastFired }</td>
               <td>
-                <button type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></button>&nbsp;
+                <Link to={`/alert/${alert.name}`} type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></Link>&nbsp;
                 <button type="button" className="btn btn-danger"><i className="bi bi-x-lg"></i></button>
               </td>
             </tr>

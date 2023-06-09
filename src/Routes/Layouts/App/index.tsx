@@ -32,7 +32,7 @@ function Layout() {
                   <NavLink to="/live" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-display"}></i> Watch Live Data</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                  <NavLink to="/devices" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-router"}></i> Manage Devices</NavLink>
+                  <NavLink to="/device" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-router"}></i> Manage Devices</NavLink>
                 </li>
                 <li className={"nav-item"}>
                   <NavLink to="/alert" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-house-fill"}></i> Manage Alerts</NavLink>

@@ -26,7 +26,7 @@ const backendApi = {
   devices: {
     list: () => fetch('/api/devices').then(res => res.json()),
     query: (id: string) => fetch(`/api/devices/${id}`).then(res => res.json()),
-    modify: (id: string, payload: { name: string, comment: string }) => fetch(`/api/devices/${id}`, {
+    modify: (id: string, payload: DeviceObject) => fetch(`/api/devices/${id}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -34,7 +34,7 @@ const backendApi = {
       },
       body: JSON.stringify(payload)
     }).then(res => res.json()),
-    add: (id: string, payload: { name: string, comment: string }) => fetch(`/api/devices/${id}`, {
+    add: (id: string, payload: DeviceObject) => fetch(`/api/devices/${id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -53,7 +53,7 @@ const backendApi = {
   alerts: {
     list: () => fetch('/api/alerts').then(res => res.json()),
     query: (id: string) => fetch(`/api/alerts/${id}`).then(res => res.json()),
-    modify: (id: string, payload: { name: string, comment: string }) => fetch(`/api/alerts/${id}`, {
+    modify: (id: string, payload: AlertObject) => fetch(`/api/alerts/${id}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -61,7 +61,7 @@ const backendApi = {
       },
       body: JSON.stringify(payload)
     }).then(res => res.json()),
-    add: (id: string, payload: { name: string, comment: string }) => fetch(`/api/alerts/${id}`, {
+    add: (id: string, payload: AlertObject) => fetch(`/api/alerts/${id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',

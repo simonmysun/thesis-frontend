@@ -5,27 +5,23 @@ import './style.css';
 
 import { backendApi, mqttApi } from './../../../API';
 
+type DeviceStatus = {
+  [name: string]: {
+    status: string,
+    prediction: string,
+    lastUpdated: Date,
+  }
+};
+
 function LiveList() {
-  const [deviceList, setDeviceList] = useState<{ name: string, comment: string }[]>([]);
-  const [deviceStatus, setDeviceStatus] = useState<{
-    [name: string]: {
-      status: string,
-      prediction: string,
-      lastUpdated: Date,
-    }
-  }>({});
+  const [deviceList, setDeviceList] = useState<DeviceObject[]>([]);
+  const [deviceStatus, setDeviceStatus] = useState<DeviceStatus>({});
   const [client, setClient] = useState<mqtt.MqttClient | null>(null);
   const [connectStatus, setConnectStatus] = useState('Disconnected');
   useEffect(() => {
-    backendApi.devices.list().then(res => {
+    backendApi.devices.list().then((res: DeviceObject[]) => {
       setDeviceList(res);
-      setDeviceStatus(res.reduce((acc: {
-        [name: string]: {
-          status: string,
-          prediction: string,
-          lastUpdated: Date,
-        }
-      }, device: { name: string, comment: string }) => {
+      setDeviceStatus(res.reduce((acc: DeviceStatus, device: DeviceObject) => {
         acc[device.name] = {
           status: 'bg-warning',
           prediction: '',

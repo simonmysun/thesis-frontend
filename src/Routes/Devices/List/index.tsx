@@ -5,7 +5,7 @@ import { backendApi } from './../../../API';
 import './style.css';
 
 function DeviceList() {
-  const [deviceList, setDeviceList] = useState<{ name: string, comment: string }[]>([]);
+  const [deviceList, setDeviceList] = useState<DeviceObject[]>([]);
   useEffect(() => {
     backendApi.devices.list().then(res => {
       setDeviceList(res);
@@ -30,14 +30,14 @@ function DeviceList() {
               <td>{ device.name }</td>
               <td>{ device.comment }</td>
               <td>
-                <button type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></button>&nbsp;
+                <Link to={`/device/${device.name}`} type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></Link>&nbsp;
                 <button type="button" className="btn btn-danger"><i className="bi bi-x-lg"></i></button>
               </td>
             </tr>
           )) }
         </tbody>
       </table>
-      <button type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add new device</button>
+      <Link to={`/device/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add new device</Link>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import './style.css';
 
 function Settings() {
   const stored = localStorage.getItem('settings');
-  const [settings, setSettings] = useState<{ mqttUrl: string, mqttUsername: string, mqttPassword: string }>({
+  const [settings, setSettings] = useState<SettingsObject>({
     mqttUrl: '',
     mqttUsername: '',
     mqttPassword: '',
