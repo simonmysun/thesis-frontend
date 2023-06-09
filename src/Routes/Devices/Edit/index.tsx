@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { backendApi } from './../../../API';
 
 import './style.css';
 
 function DeviceEdit() {
   const { deviceId } = useParams() as { deviceId: string };
+  const navigate = useNavigate();
   const [device, setDevice] = useState<DeviceObject | null>(null);
   useEffect(() => {
     if(deviceId === '__new') {
@@ -27,10 +28,11 @@ function DeviceEdit() {
   };
   const saveDevice = () => {
     if(deviceId === '__new') {
-      backendApi.devices.modify(deviceId, device as DeviceObject);
+      backendApi.devices.add((device as DeviceObject).name, device as DeviceObject).then(() => navigate(`/device/${device?.name}`));
     } else {
-      backendApi.devices.modify((device as DeviceObject).name, device as DeviceObject);
+      backendApi.devices.modify(deviceId, device as DeviceObject);
     }
+    navigate('/')
   };
   return (
     <div>

@@ -5,6 +5,7 @@ import {
     RouterProvider,
     createRoutesFromElements,
     Route,
+    Navigate,
 } from "react-router-dom";
 
 import 'bootstrap';
@@ -54,6 +55,7 @@ const router = createHashRouter(
                 <Route index element={<Settings />} />
                 <Route path=":query" element={<Settings />} />
             </Route>
+            <Route path="logout" element={<Navigate to="/" replace />}/>
             <Route path="*" element={<ErrorPage />} />
         </Route>
     )

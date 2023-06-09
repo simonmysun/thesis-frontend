@@ -1,22 +1,26 @@
 import {
   Outlet,
   NavLink,
+  Link,
 } from 'react-router-dom';
 import './style.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Layout() {
   return (
     <div>
       <header className={"navbar navbar-dark sticky-top bg-tuc flex-md-nowrap p-0 shadow"}>
-        <a className={"navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6"} href="/">Indoor Sound Classification</a>
+        <Link className={"navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6"} to="/">Indoor Sound Classification</Link>
         <button className={"navbar-toggler position-absolute d-md-none collapsed"} type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span className={"navbar-toggler-icon"}></span>
         </button>
         <input className={"form-control form-control-dark w-100 rounded-0 border-0"} type="text" placeholder="Command" aria-label="Command" />
         <div className={"navbar-nav"}>
           <div className={"nav-item text-nowrap"}>
-            <a className={"nav-link px-3"} href="/logout">Exit</a>
+            <Link className={"nav-link px-3"} to="/logout">Exit</Link>
           </div>
         </div>
       </header>
@@ -52,11 +56,11 @@ function Layout() {
           <footer className={"text-muted py-5 col-md-9 ms-sm-auto col-lg-10 px-md-4"}>
             <div className={"container"}>
               <p className={"float-end mb-1"}>
-                <a href="/">Back to home</a>
+                <Link to="/">Back to home</Link>
               </p>
               <p>     </p>
               <p className={"mb-1"}>Lorem ipsum dolor sit amet, consectetur adipiscing &copy; elit, quis nostrud exercitation.</p>
-              <p className={"mb-0"}>Sed do eiusmod tempor <a href="/">incididunt</a> ut labore et <a href="/">dolore magna aliqua</a> Ut enim ad minim veniam,</p>
+              <p className={"mb-0"}>Sed do eiusmod tempor <Link to=".">incididunt</Link> ut labore et <Link to=".">dolore magna aliqua</Link> Ut enim ad minim veniam,</p>
             </div>
           </footer>
         </div>
