@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import { backendApi } from './../../../API';
 
 import './style.css';
@@ -14,6 +16,7 @@ function DeviceList() {
   const removeDevice = (deviceId: string) => {
     backendApi.devices.delete(deviceId);
     setDeviceList(prevState => prevState.filter(device => device.name !== deviceId));
+    toast.success(`Device ${deviceId} deleted. `);
   };
   return (
     <div>
@@ -41,7 +44,7 @@ function DeviceList() {
           )) }
         </tbody>
       </table>
-      <Link to={`/device/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add new device</Link>
+      <Link to={`/device/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add a new device</Link>
     </div>
   );
 }
