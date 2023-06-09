@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import { backendApi } from './../../../API';
+
 import './style.css';
 
 function AlertList() {
@@ -10,6 +13,11 @@ function AlertList() {
       setAlertList(res);
     });
   }, []);
+  const removeAlert = (alertId: string) => {
+    backendApi.alerts.delete(alertId);
+    setAlertList(prevState => prevState.filter(alert => alert.name !== alertId));
+    toast.success(`Alert ${alertId} deleted. `);
+  };
   return (
     <div>
       <span className="hidden">App Alert List</span>
@@ -32,13 +40,13 @@ function AlertList() {
               <td>{ alert.lastFired }</td>
               <td>
                 <Link to={`/alert/${alert.name}`} type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></Link>&nbsp;
-                <button type="button" className="btn btn-danger"><i className="bi bi-x-lg"></i></button>
+                <button type="button" className="btn btn-danger" onClick={ () => removeAlert(alert.name) }><i className="bi bi-x-lg"></i></button>
               </td>
             </tr>
           )) }
         </tbody>
       </table>
-      <button type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add new alert</button>
+      <Link to={`/alert/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add a new alert</Link>
     </div>
   );
 }

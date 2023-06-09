@@ -30,7 +30,7 @@ function DeviceEdit() {
     });
   };
   const saveDevice = () => {
-    if(device?.name === '') {
+    if (device?.name === '') {
       toast.warn('Device name cannot be empty! ');
       return;
     }
@@ -52,19 +52,19 @@ function DeviceEdit() {
       }),
       {
         pending: {
-          render(){
+          render() {
             return "Pending"
           },
           icon: '🔵',
         },
         success: {
-          render({data}){
+          render({ data }) {
             return `${data}`;
           },
           icon: '🟢',
         },
         error: {
-          render({data}){
+          render({ data }) {
             // When the promise reject, data will contains the error
             return `${data}`;
           },
@@ -85,7 +85,7 @@ function DeviceEdit() {
         <label htmlFor="device-name" className="form-label">Name</label>
       </div>
       <div className="mt-3 form-floating">
-        <input type="text" className="form-control" id="device-comment" placeholder="device name" value={device === null ? '' : device.comment} disabled={locked} onChange={updateDevice} />
+        <input type="text" className="form-control" id="device-comment" placeholder="device comment" value={device === null ? '' : device.comment} disabled={locked} onChange={updateDevice} />
         <label htmlFor="device-Comment" className="form-label">Comment</label>
       </div>
       <button type="button" className="btn btn-success mt-3" onClick={saveDevice} disabled={locked}><i className="bi bi-check-lg"></i> Save</button>

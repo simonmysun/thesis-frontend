@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 const mqttApi = {
   getSettings: function (): { mqttUsername: string, mqttPassword: string, mqttClientId: string, mqttUrl: string } {
     const stored = localStorage.getItem('settings');
-    if(stored === null) {
+    if (stored === null) {
       return {
         mqttUsername: '',
         mqttPassword: '',
