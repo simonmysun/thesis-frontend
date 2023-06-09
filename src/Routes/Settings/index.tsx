@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import './style.css';
 
 function Settings() {
-  const stored = localStorage.getItem('settings');
   const [settings, setSettings] = useState<SettingsObject>({
     mqttUrl: '',
     mqttUsername: '',
@@ -16,7 +15,7 @@ function Settings() {
     } else {
       setSettings(JSON.parse(stored));
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const updateSettings = function() {
     setSettings({
       mqttUrl: (document.querySelector('#mqtt-url') as HTMLInputElement).value,
