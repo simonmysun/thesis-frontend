@@ -8430,11 +8430,6 @@ react@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
 
-reactjs-calendar-heatmap@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/reactjs-calendar-heatmap/-/reactjs-calendar-heatmap-0.2.3.tgz#1a6770443231f4ef5ea4482b5a1bc0e08ffa5eb0"
-  integrity sha512-0ObCBn2OazVo/hI+SeQZPI2YcaUBv0JxreZXs26R83RQ89R1glu+9/A73oJ4Kgu5fYzS9H1YpKInpseJVLZmhA==
-
 read-cache@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/read-cache/-/read-cache-1.0.0.tgz#e664ef31161166c9751cdbe8dbcf86b5fb58f774"
