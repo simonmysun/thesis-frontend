@@ -24,8 +24,18 @@ const mqttApi = {
 
 const backendApi = {
   devices: {
-    list: () => fetch('/api/devices').then(res => res.json()),
-    query: (id: string) => fetch(`/api/devices/${id}`).then(res => res.json()),
+    list: () => fetch('/api/devices').then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    }).then(res => res.json()),
+    query: (id: string) => fetch(`/api/devices/${id}`).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    }).then(res => res.json()),
     modify: (id: string, payload: DeviceObject) => fetch(`/api/devices/${id}`, {
       method: 'POST',
       headers: {
@@ -33,6 +43,11 @@ const backendApi = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(res => res.json()),
     add: (id: string, payload: DeviceObject) => fetch(`/api/devices/${id}`, {
       method: 'PUT',
@@ -41,6 +56,11 @@ const backendApi = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(res => res.json()),
     delete: (id: string) => fetch(`/api/devices/${id}`, {
       method: 'DELETE',
@@ -48,11 +68,26 @@ const backendApi = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+    }).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(res => res.json()),
   },
   alerts: {
-    list: () => fetch('/api/alerts').then(res => res.json()),
-    query: (id: string) => fetch(`/api/alerts/${id}`).then(res => res.json()),
+    list: () => fetch('/api/alerts').then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    }).then(res => res.json()),
+    query: (id: string) => fetch(`/api/alerts/${id}`).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
+    }).then(res => res.json()),
     modify: (id: string, payload: AlertObject) => fetch(`/api/alerts/${id}`, {
       method: 'POST',
       headers: {
@@ -60,6 +95,11 @@ const backendApi = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(res => res.json()),
     add: (id: string, payload: AlertObject) => fetch(`/api/alerts/${id}`, {
       method: 'PUT',
@@ -68,6 +108,11 @@ const backendApi = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(res => res.json()),
     delete: (id: string) => fetch(`/api/alerts/${id}`, {
       method: 'DELETE',
@@ -75,6 +120,11 @@ const backendApi = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+    }).then(function (response) {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response;
     }).then(res => res.json()),
   },
 };

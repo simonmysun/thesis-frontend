@@ -11,6 +11,10 @@ function DeviceList() {
       setDeviceList(res);
     });
   }, []);
+  const removeDevice = (deviceId: string) => {
+    backendApi.devices.delete(deviceId);
+    setDeviceList(prevState => prevState.filter(device => device.name !== deviceId));
+  };
   return (
     <div>
       <span className="hidden">App Device List</span>
@@ -27,11 +31,11 @@ function DeviceList() {
         <tbody>
           { deviceList.map(device => (
             <tr key={ device.name }>
-              <td>{ device.name }</td>
+              <td><Link to={`/device/${device.name}`} style={ { color: 'inherit', textDecoration: 'inherit' } }>{ device.name }</Link></td>
               <td>{ device.comment }</td>
               <td>
                 <Link to={`/device/${device.name}`} type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></Link>&nbsp;
-                <button type="button" className="btn btn-danger"><i className="bi bi-x-lg"></i></button>
+                <button type="button" className="btn btn-danger" onClick={ () => removeDevice(device.name) }><i className="bi bi-x-lg"></i></button>
               </td>
             </tr>
           )) }
