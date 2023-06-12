@@ -1,0 +1,20 @@
+.scroll-container {
+  position: relative;
+  height: 80vh;
+  width: 100%;
+}
+
+.stick-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.non-stick-top {
+  height: 100%;
+  width: 100%;
+  padding-top: 100px;
+  overflow: auto;
+}
