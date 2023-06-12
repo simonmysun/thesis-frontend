@@ -1,6 +1,6 @@
 import Ridgeline from './Ridgeline';
 import Heatmap from './Heatmap';
-import CalHeatmapWeekXMonth from './CalHeatmapWeekXMonth';
+import CalHeatmapDayXDay from './CalHeatmapDayXDay';
 import CalHeatmapHourXDay from './CalHeatmapHourXDay';
 import StatusTimeline from './StatusTimeline';
 import HourlyHeatmap from './HourlyHeatmap';
@@ -11,7 +11,7 @@ export {
     Ridgeline,
     Heatmap,
     OrderedList,
-    CalHeatmapWeekXMonth,
+    CalHeatmapDayXDay,
     CalHeatmapHourXDay,
     StatusTimeline,
     Prediction,
