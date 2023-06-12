@@ -1,7 +1,7 @@
 import Iframe from 'react-iframe'
 import './style.css';
 
-function CalHeatmapWeekXMonth(props: {
+function CalHeatmapWeekdayXDay(props: {
   prefix: string,
   orgId: number,
   rangeFrom: number,
@@ -28,4 +28,4 @@ function CalHeatmapWeekXMonth(props: {
   );
 }
 
-export default CalHeatmapWeekXMonth;
+export default CalHeatmapWeekdayXDay;

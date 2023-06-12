@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 import { useState, useEffect } from 'react';
 import {
   CalHeatmapHourXDay,
-  CalHeatmapDayXDay,
+  CalHeatmapWeekdayXDay,
   HourlyHeatmap,
   StatusTimeline,
   Prediction,
@@ -130,7 +130,7 @@ function Query() {
                 tags={SelectedTags.length > 0 ? SelectedTags.map(option => option.name) : ['All']} />
             </div>
             <div className='col-sm-12'>
-              <CalHeatmapDayXDay
+              <CalHeatmapWeekdayXDay
                 prefix={prefix}
                 orgId={orgId}
                 rangeFrom={rangeFrom.valueOf()}
