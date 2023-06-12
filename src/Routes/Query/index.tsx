@@ -42,74 +42,91 @@ function Query() {
     <div>
       <span className="hidden">App Query</span>
       <div className='scroll-container'>
-        <div className='stick-top'>
-        <Multiselect
-          options={deviceList.map((device, id) => ({
-            name: device.name,
-            id: id
-          }))} // Options to display in the dropdown
-          selectedValues={SelectedDevices} // Preselected value to persist in dropdown
-          onSelect={updateSelectedDevices} // Function will trigger on select event
-          onRemove={updateSelectedDevices} // Function will trigger on remove event
-          displayValue='name' // Property name to display in the dropdown options
-          placeholder='Select device'
-          loading={deviceListLoading}
-          showArrow={true}
-          />
-          <Multiselect
-            options={tagList.map((tag, id) => ({
-              name: tag,
-              id: id
-            }))} // Options to display in the dropdown
-            selectedValues={SelectedTags} // Preselected value to persist in dropdown
-            onSelect={updateSelectedTags} // Function will trigger on select event
-            onRemove={updateSelectedTags} // Function will trigger on remove event
-            displayValue='name' // Property name to display in the dropdown options
-            placeholder='Select tags'
-            showArrow={true}
+        <div className='stick-top row'>
+          <div className='col-md-4 col-sm-12'>
+            <Multiselect
+              options={deviceList.map((device, id) => ({
+                name: device.name,
+                id: id
+              }))} // Options to display in the dropdown
+              selectedValues={SelectedDevices} // Preselected value to persist in dropdown
+              onSelect={updateSelectedDevices} // Function will trigger on select event
+              onRemove={updateSelectedDevices} // Function will trigger on remove event
+              displayValue='name' // Property name to display in the dropdown options
+              placeholder='Select device'
+              loading={deviceListLoading}
+              showArrow={true}
+              className='col-md-4 col-sm-12'
             />
+          </div>
+          <div className='col-md-4 col-sm-12'>
+            <Multiselect
+              options={tagList.map((tag, id) => ({
+                name: tag,
+                id: id
+              }))} // Options to display in the dropdown
+              selectedValues={SelectedTags} // Preselected value to persist in dropdown
+              onSelect={updateSelectedTags} // Function will trigger on select event
+              onRemove={updateSelectedTags} // Function will trigger on remove event
+              displayValue='name' // Property name to display in the dropdown options
+              placeholder='Select tags'
+              showArrow={true}
+            />
+          </div>
         </div>
         <div className='non-stick-top'>
-          <Prediction
-            prefix={prefix}
-            orgId={orgId}
-            rangeFrom={rangeFrom}
-            rangeTo={rangeTo}
-            refresh={refresh}
-            deviceId={SelectedDevices.map(option => option.name)}
-            tags={SelectedTags.map(option => option.name)} />
-          <CalHeatmapHourXDay
-            prefix={prefix}
-            orgId={orgId}
-            rangeFrom={rangeFrom}
-            rangeTo={rangeTo}
-            refresh={refresh}
-            deviceId={SelectedDevices.map(option => option.name)}
-            tags={SelectedTags.map(option => option.name)} />
-          <CalHeatmapWeekXMonth
-            prefix={prefix}
-            orgId={orgId}
-            rangeFrom={rangeFrom}
-            rangeTo={rangeTo}
-            refresh={refresh}
-            deviceId={SelectedDevices.map(option => option.name)}
-            tags={SelectedTags.map(option => option.name)} />
-          <StatusTimeline
-            prefix={prefix}
-            orgId={orgId}
-            rangeFrom={rangeFrom}
-            rangeTo={rangeTo}
-            refresh={refresh}
-            deviceId={SelectedDevices.map(option => option.name)}
-            tags={SelectedTags.map(option => option.name)} />
-          <HourlyHeatmap
-            prefix={prefix}
-            orgId={orgId}
-            rangeFrom={rangeFrom}
-            rangeTo={rangeTo}
-            refresh={refresh}
-            deviceId={SelectedDevices.map(option => option.name)}
-            tags={SelectedTags.map(option => option.name)} />
+          <div className='row'>
+            <div className='col-sm-12'>
+              <Prediction
+                prefix={prefix}
+                orgId={orgId}
+                rangeFrom={rangeFrom}
+                rangeTo={rangeTo}
+                refresh={refresh}
+                deviceId={SelectedDevices.map(option => option.name)}
+                tags={SelectedTags.map(option => option.name)} />
+            </div>
+            <div className='col-sm-12'>
+              <CalHeatmapHourXDay
+                prefix={prefix}
+                orgId={orgId}
+                rangeFrom={rangeFrom}
+                rangeTo={rangeTo}
+                refresh={refresh}
+                deviceId={SelectedDevices.map(option => option.name)}
+                tags={SelectedTags.map(option => option.name)} />
+            </div>
+            <div className='col-sm-12'>
+              <CalHeatmapWeekXMonth
+                prefix={prefix}
+                orgId={orgId}
+                rangeFrom={rangeFrom}
+                rangeTo={rangeTo}
+                refresh={refresh}
+                deviceId={SelectedDevices.map(option => option.name)}
+                tags={SelectedTags.map(option => option.name)} />
+            </div>
+            <div className='col-sm-12 col-md-8'>
+              <StatusTimeline
+                prefix={prefix}
+                orgId={orgId}
+                rangeFrom={rangeFrom}
+                rangeTo={rangeTo}
+                refresh={refresh}
+                deviceId={SelectedDevices.map(option => option.name)}
+                tags={SelectedTags.map(option => option.name)} />
+            </div>
+            <div className='col-sm-12 col-md-4'>
+              <HourlyHeatmap
+                prefix={prefix}
+                orgId={orgId}
+                rangeFrom={rangeFrom}
+                rangeTo={rangeTo}
+                refresh={refresh}
+                deviceId={SelectedDevices.map(option => option.name)}
+                tags={SelectedTags.map(option => option.name)} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

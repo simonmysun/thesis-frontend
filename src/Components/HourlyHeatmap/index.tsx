@@ -24,7 +24,7 @@ function HourlyHeatmap(props: {
    } = props;
   return (
     <Iframe url={`${prefix}?orgId=${orgId}&from=${rangeFrom}&to=${rangeTo}&refresh=${refresh}${deviceId.map(id => `&var-device_id=${id}`).join('')}${tags.map( tag => `&var-tag=${tag}`).join('')}&theme=${theme}&panelId=${panelId}`}
-      styles={{ position: 'relative', height: height, width: '33%' }} />
+      styles={{ position: 'relative', height: height, width: '100%' }} />
   );
 }
 
