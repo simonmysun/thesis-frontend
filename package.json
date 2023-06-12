@@ -11,7 +11,7 @@
     "mqtt": "^4.3.7",
     "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.2.0",
-    "react-date-range": "^1.4.0",
+    "react-advanced-datetimerange-picker": "^1.0.14",
     "react-dom": "^18.2.0",
     "react-flip-toolkit": "^7.0.17",
     "react-iframe": "^1.8.5",
@@ -67,7 +67,5 @@
     "yarn": "^1.22.19",
     "yarn-upgrade-all": "^0.7.2"
   },
-  "peerDependencies": {
-    "date-fns": "^2.30.0"
-  }
+  "peerDependencies": {}
 }
