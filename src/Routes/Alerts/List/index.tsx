@@ -35,7 +35,7 @@ function AlertList() {
         <tbody>
           { alertList.map(alert => (
             <tr key={ alert.name }>
-              <td>{ alert.name }</td>
+              <td><Link to={`/alert/${alert.name}`} style={ { color: 'inherit', textDecoration: 'inherit' } }>{ alert.name }</Link></td>
               <td>{ alert.comment }</td>
               <td>{ alert.lastFired }</td>
               <td>
