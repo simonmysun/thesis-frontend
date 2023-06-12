@@ -7,7 +7,7 @@ import { Ridgeline, OrderedList } from './../../../Components';
 
 import { mqttApi } from './../../../API';
 
-function LiveView(props: any) {
+function LiveView() {
   const { deviceId } = useParams();
   const [ currentData, updateData ] = useState<VisDatum[]>([]);
   const [ newData, updateNewData ] = useState<VisDatum[]>([]);
