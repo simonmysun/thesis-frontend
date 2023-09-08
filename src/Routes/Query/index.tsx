@@ -76,6 +76,7 @@ function Query() {
               displayValue='name' // Property name to display in the dropdown options
               placeholder='Select device'
               loading={deviceListLoading}
+              singleSelect={true}
               showArrow={true}
               className='col-md-4 col-sm-12'
             />
