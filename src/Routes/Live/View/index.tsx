@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import * as mqtt from 'mqtt/dist/mqtt';
 
 import './style.css';
-import { Ridgeline, OrderedList } from './../../../Components';
+import { Ridgeline, Heatmap, OrderedList } from './../../../Components';
 
 import { mqttApi } from './../../../API';
 
@@ -108,7 +108,7 @@ function LiveView() {
       <h2>{ deviceId }</h2>
       <hr/>
       <div className="col col-md-7 col-sm-12 heatmap-container">
-        <Ridgeline key={ deviceId } currentData={ currentData } connectStatus={ connectStatus } sampleRate={ sampleRate } />
+        <Heatmap key={ deviceId } currentData={ currentData } connectStatus={ connectStatus } sampleRate={ sampleRate } />
       </div>
       <div className="col col-md-5 col-sm-12">
         <OrderedList list={ newData } />
