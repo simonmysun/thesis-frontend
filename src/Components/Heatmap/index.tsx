@@ -5,6 +5,7 @@ import Stats from 'stats.js';
 
 function Heatmap(props: {
   currentData: VisDatum[],
+  newData: VisDatum[],
   connectStatus: string,
   sampleRate: number
 }) {
@@ -46,7 +47,7 @@ function Heatmap(props: {
           .range([0, outerWidth - margin.left - margin.right - outerWidth / 60])
           .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - sampleRate * 60)), d3.max(currentData, d => d.timestamp)] as Date[]);
         const xAxis = d3.axisBottom<Date>(x).tickFormat(d3.timeFormat('%X'));
-        svg.selectAll('*').remove();
+        // svg.selectAll('*').remove();
         svg.append('g')
           .attr('class', 'x axis')
           .attr('transform', `translate(0, ${outerHeight - margin.top - margin.bottom + 1})`)
@@ -82,9 +83,10 @@ function Heatmap(props: {
           .style('stroke', 'none')
           .style('opacity', 0.8)
           .attr('transform`', null)
-          // .transition()
-          // .duration(1000)
-          // .attr('transform', `translate(${- outerWidth / 60})`);
+          .transition()
+          .ease(d3.easeLinear)
+          .duration(60000)
+          .attr('transform', `translate(${- outerWidth})`);
       }
     }
     stats.end();
