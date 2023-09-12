@@ -10,13 +10,20 @@ function Heatmap(props: {
   sampleRate: number
 }) {
   const componentRef = useRef<SVGSVGElement>(null);
-  const { currentData, connectStatus, sampleRate } = props;
+  const { currentData, newData, connectStatus, sampleRate } = props;
+  const [componentUpdated, setComponentUpdated] = useState(false);
   const [outerWidth, setOuterWidth] = useState(0);
   const [outerHeight, setOuterHeight] = useState(0);
   const handleResize = useCallback(() => {
     setOuterWidth(componentRef.current!.parentElement!.offsetWidth);
     setOuterHeight(componentRef.current!.parentElement!.offsetHeight);
   }, [componentRef]);
+  const [d3svg, setD3svg] = useState<d3.Selection<SVGElement, unknown, null, undefined>>(d3.select(componentRef.current as SVGElement));
+  const [d3X, setD3X] = useState(() => d3.scaleLinear());
+  const [d3Y, setD3Y] = useState(() => d3.scaleBand());
+  const [d3$X, setD3$X] = useState<d3.Selection<SVGGElement, unknown, null, undefined>>();
+  const [d3$Y, setD3$Y] = useState<d3.Selection<SVGGElement, unknown, null, undefined>>();
+  const [d3$Vis, setD3$Vis] = useState<d3.Selection<SVGGElement, unknown, null, undefined>>();
   useEffect(() => {
     window.addEventListener('load', handleResize);
     window.addEventListener('resize', handleResize);
@@ -31,51 +38,53 @@ function Heatmap(props: {
     stats.dom.style.cssText = 'position: absolute; bottom: 0px; left: 0px; z-index: 100000';
     stats.showPanel(1);
     document.body.appendChild(stats.dom);
-    const svg = d3.select(componentRef.current as SVGElement);
-    svg.selectAll('*').remove();
     handleResize();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
+    setD3svg(d3.select(componentRef.current as SVGElement));
+    setComponentUpdated(false);
+    setComponentUpdated(true);
+  }, [componentRef]);
+  useEffect(() => {
+    d3X.range([0, outerWidth - margin.left - margin.right - outerWidth / 60]);
+    d3Y.range([outerHeight - margin.top - margin.bottom, 0]);
+    d3svg.selectAll('*').remove();
+    d3svg.append('rect')
+    .attr('width', outerWidth - margin.left - margin.right)
+    .attr('height', outerHeight - margin.top - margin.bottom)
+    .attr('fill', '#000');
+    setD3$X(d3svg.append('g')
+    .attr('class', 'x axis')
+    .attr('transform', `translate(0, ${outerHeight - margin.top - margin.bottom + 1})`));
+    setD3$Y(d3svg.append('g')
+    .attr('class', 'y axis')
+    .attr('transform', `translate(${outerWidth - margin.left - margin.right + 3}, 0)`));
+    setD3$Vis(d3svg.append('g').attr('class', 'heat-group'));
+  }, [outerWidth, outerHeight, componentUpdated]);
+  useEffect(() => {
     stats.begin();
     if (outerHeight > 0 && outerWidth > 0) {
-      const svg = d3.select(componentRef.current as SVGElement);
-      svg.selectAll("*").remove();
+      setD3svg(d3.select(componentRef.current as SVGElement));
       if (connectStatus === 'Disconnected') {
-        svg.append('text').text('Cannot establish connection to the stream server');
+        d3svg.append('text').text('Cannot establish connection to the stream server');
       } else {
-        const x = d3.scaleTime()
-          .range([0, outerWidth - margin.left - margin.right - outerWidth / 60])
-          .domain([d3.max(currentData, d => new Date(new Date(d.timestamp).getTime() - sampleRate * 60)), d3.max(currentData, d => d.timestamp)] as Date[]);
-        const xAxis = d3.axisBottom<Date>(x).tickFormat(d3.timeFormat('%X'));
-        // svg.selectAll('*').remove();
-        svg.append('g')
-          .attr('class', 'x axis')
-          .attr('transform', `translate(0, ${outerHeight - margin.top - margin.bottom + 1})`)
-          .call(xAxis)
+        d3X.domain([-60, 0]);
+        const xAxis = d3.axisBottom(d3X).tickFormat(t => `${t}s`);
+        d3$X?.call(xAxis)
           .selectAll('text')
-          .attr('transform', 'translate(0, 5) rotate(90)')
+          .attr('transform', 'translate(0, 5)')
           .style('text-anchor', 'start');
-        const y = d3.scaleBand()
-          .range([outerHeight - margin.top - margin.bottom, 0])
-          .domain(d3.map(currentData, d => d.tag));
-        const yAxis = d3.axisRight(y).tickSize(0);
-        svg.append('g')
-          .attr('class', 'y axis')
-          .attr('transform', `translate(${outerWidth - margin.left - margin.right + 3}, 0)`)
-          .call(yAxis);
-        svg.append('rect')
-          .attr('width', outerWidth - margin.left - margin.right)
-          .attr('height', outerHeight - margin.top - margin.bottom)
-          .attr('fill', '#000');
-        svg.append('g').attr('class', 'heat-group').selectAll()
-          .data(currentData)
+        d3Y.domain(d3.map(currentData, d => d.tag));
+        const yAxis = d3.axisRight(d3Y).tickSize(0);
+        d3$Y?.call(yAxis);
+        d3$Vis?.selectAll().data(newData.filter(x => x !== undefined))
           .enter()
           .append('rect')
           .attr('class', 'heat')
-          .attr('x', d => x(d.timestamp))
-          .attr('y', d => y(d.tag)!)
+          .attr('x', d => d3X(new Date().getDate() - new Date(d.timestamp).getDate()))
+          .attr('y', d => d3Y(d.tag)!)
           .attr('width', outerWidth / 60)
-          .attr('height', y.bandwidth())
+          .attr('height', d3Y.bandwidth())
           .style('fill', d => d3.scaleSequential()
             .interpolator(d3.interpolateInferno)
             .domain([0, 1])(d.value))
@@ -86,11 +95,12 @@ function Heatmap(props: {
           .transition()
           .ease(d3.easeLinear)
           .duration(60000)
-          .attr('transform', `translate(${- outerWidth})`);
+          .attr('transform', `translate(${- outerWidth})`)
+          .remove();
       }
     }
     stats.end();
-  }, [currentData, outerWidth, outerHeight, connectStatus, stats]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentData, newData, outerWidth, outerHeight, connectStatus, stats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <svg ref={ componentRef } width={ outerWidth } height={ outerHeight } role="img" />
