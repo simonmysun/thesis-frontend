@@ -70,7 +70,7 @@ function LiveView() {
         });
       });
     }
-  }, [client]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [client, deviceId]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     // console.log('effect subscription');
     const topic = `tele/indoor_sound_classification/${deviceId}/state`;
