@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import * as mqtt from 'mqtt/dist/mqtt';
 
 import './style.css';
-import { Ridgeline, Heatmap, OrderedList } from './../../../Components';
+import { Heatmap, OrderedList } from './../../../Components';
 
 import { mqttApi } from './../../../API';
 
