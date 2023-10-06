@@ -10,11 +10,11 @@ import { mqttApi } from './../../../API';
 
 function LiveView() {
   const { deviceId } = useParams();
-  const [ currentData, updateData ] = useState<VisDatum[]>([]);
-  const [ newData, updateNewData ] = useState<VisDatum[]>([]);
-  const [ sampleRate, setSampleRate ] = useState(0);
-  const [ client, setClient ] = useState<mqtt.MqttClient | null>(null);
-  const [ connectStatus, setConnectStatus ] = useState('Disconnected');
+  const [currentData, updateData] = useState<VisDatum[]>([]);
+  const [newData, updateNewData] = useState<VisDatum[]>([]);
+  const [sampleRate, setSampleRate] = useState(0);
+  const [client, setClient] = useState<mqtt.MqttClient | null>(null);
+  const [connectStatus, setConnectStatus] = useState('Disconnected');
   useEffect(() => {
     // console.log('effect connection');
     setConnectStatus('Connecting');
@@ -58,7 +58,7 @@ function LiveView() {
         toast.info(`Reconnecting`);
       });
       client.on('message', (topic: string, payload: object) => {
-        if(topic !== `tele/indoor_sound_classification/${deviceId}/state`) {
+        if (topic !== `tele/indoor_sound_classification/${deviceId}/state`) {
           return;
         }
         const message = JSON.parse(payload.toString());
@@ -107,13 +107,13 @@ function LiveView() {
   return (
     <div className="row">
       <span className="hidden">App LiveView</span>
-      <h2>{ deviceId }</h2>
-      <hr/>
+      <h2>{deviceId}</h2>
+      <hr />
       <div className="col col-md-7 col-sm-12 heatmap-container">
-        <Heatmap key={ deviceId } currentData={ currentData } newData={ newData } connectStatus={ connectStatus } sampleRate={ sampleRate } />
+        <Heatmap key={deviceId} currentData={currentData} newData={newData} connectStatus={connectStatus} sampleRate={sampleRate} />
       </div>
       <div className="col col-md-5 col-sm-12">
-        <OrderedList list={ newData } />
+        <OrderedList list={newData} />
       </div>
     </div>
   );
