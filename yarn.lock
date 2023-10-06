@@ -2491,6 +2491,11 @@
     "@typescript-eslint/types" "5.57.1"
     eslint-visitor-keys "^3.3.0"
 
+"@uidotdev/usehooks@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@uidotdev/usehooks/-/usehooks-2.3.1.tgz#2221b0fb8607008b0630497d9bd8c0932f0ab0c0"
+  integrity sha512-1GL8CatTsTGZdwPNrZ44JhJI5QWip7oyDXEXFBEibJ+P+p+ZBi7mKrpG90ZIdQTSEcvkfiE2Y492Uo3ubPBZ3g==
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"

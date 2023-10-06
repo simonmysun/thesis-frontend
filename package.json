@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@uidotdev/usehooks": "^2.3.1",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.4",
     "canvas": "^2.11.2",

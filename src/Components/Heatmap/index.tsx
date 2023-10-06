@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import * as d3 from 'd3';
 import './style.css';
 import Stats from 'stats.js';
+import { useVisibilityChange } from "@uidotdev/usehooks";
 
 function Heatmap(props: {
   currentData: VisDatum[],
@@ -12,6 +13,7 @@ function Heatmap(props: {
   const componentRef = useRef<SVGSVGElement>(null);
   const { currentData, newData, connectStatus, sampleRate } = props;
   const [componentUpdated, setComponentUpdated] = useState(false);
+  const documentVisible = useVisibilityChange();
   const [outerWidth, setOuterWidth] = useState(0);
   const [outerHeight, setOuterHeight] = useState(0);
   const handleResize = useCallback(() => {
@@ -63,7 +65,7 @@ function Heatmap(props: {
       .attr('class', 'y axis')
       .attr('transform', `translate(${outerWidth - margin.left - margin.right + 3}, 0)`));
     setD3$Vis(d3svg.append('g').attr('class', 'heat-group'));
-  }, [outerWidth, outerHeight, componentUpdated]);
+  }, [outerWidth, outerHeight, componentUpdated, documentVisible]);
   useEffect(() => {
     stats.begin();
     if (outerHeight > 0 && outerWidth > 0) {
