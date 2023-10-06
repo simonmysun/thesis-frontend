@@ -85,7 +85,7 @@ function Heatmap(props: {
           .attr("class", "gridline")
           .attr("x1", - outerWidth + margin.left + margin.right)
           .attr("y1", 0)
-          .attr("x2", -10)
+          .attr("x2", -3)
           .attr("y2", 0)
           .attr("stroke", "#000")
           .attr("stroke-width", d3Y.bandwidth() - 2);
@@ -95,7 +95,7 @@ function Heatmap(props: {
           .attr('class', 'heat')
           .attr('x', d => d3X(new Date().getDate() - new Date(d.timestamp).getDate()) - outerWidth / 60 * sampleRate / 1000 * 0.2)
           .attr('y', d => d3Y(d.tag)!)
-          .attr('width', outerWidth / 60 * sampleRate / 1000 * 1.1 + 5)
+          .attr('width', outerWidth / 60 * sampleRate / 1000 + 3)
           .attr('height', d3Y.bandwidth())
           .style('fill', d => d3.scaleSequential()
             .interpolator(d3.interpolateInferno)
