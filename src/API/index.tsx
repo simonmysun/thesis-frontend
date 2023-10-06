@@ -129,7 +129,12 @@ const backendApi = {
   },
 };
 
+const grafanaApi = {
+  endPoint: `https://thesis-backend-grafana-mys-karlsruhe-0.makelove.expert/d-solo/s4WuoHlVz/indoor-sound-classification`,
+}
+
 export {
   mqttApi,
   backendApi,
+  grafanaApi,
 };

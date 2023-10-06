@@ -26,6 +26,11 @@ import DeviceList from './Routes/Devices/List';
 import DeviceEdit from './Routes/Devices/Edit';
 import AlertList from './Routes/Alerts/List';
 import AlertEdit from './Routes/Alerts/Edit';
+import QueryStatusTimeline from './Routes/QueryStatusTimeline';
+import QueryCalHeatmapHourXDay from './Routes/QueryCalHeatmapHourXDay';
+import QueryCalHeatmapWeekdayXDay from './Routes/QueryCalHeatmapWeekdayXDay';
+import QueryHourlyHeatmap from './Routes/QueryHourlyHeatmap';
+import QueryPrediction from './Routes/QueryPrediction';
 import Query from './Routes/Query';
 import Settings from './Routes/Settings';
 
@@ -48,8 +53,12 @@ const router = createHashRouter(
                 <Route path=":alertId" element={<AlertEdit />} />
             </Route>
             <Route path="query" element={<LayoutQuery />}>
-                <Route index element={<Query />} />
-                <Route path=":query" element={<Query />} />
+                <Route path="status-timeline" element={<QueryStatusTimeline />} />
+                <Route path="calendar-hour-day" element={<QueryCalHeatmapHourXDay />} />
+                <Route path="calendar-weekday-day" element={<QueryCalHeatmapWeekdayXDay />} />
+                <Route path="hourly-heatmap" element={<QueryHourlyHeatmap />} />
+                <Route path="line-chart" element={<QueryPrediction />} />
+                <Route path="all" element={<Query />} />
             </Route>
             <Route path="settings" element={<LayoutSettings />}>
                 <Route index element={<Settings />} />

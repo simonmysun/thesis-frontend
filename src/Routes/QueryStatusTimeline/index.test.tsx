@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Query from '.';
+import QueryStatusTimeline from '.';
 import {
   BrowserRouter,
   Routes,
@@ -7,14 +7,14 @@ import {
   Outlet
 } from 'react-router-dom';
 
-test('renders Query', () => {
+test('renders QueryStatusTimeline', () => {
   render(<BrowserRouter>
     <Routes>
       <Route path="/" element={<Outlet context={{ queryString: '' }} />}>
-        <Route index element={<Query />} />
+        <Route index element={<QueryStatusTimeline />} />
       </Route>
     </Routes>
   </BrowserRouter>);
-  const linkElement = screen.getByText(/Query/i);
+  const linkElement = screen.getByText(/QueryStatusTimeline/i);
   expect(linkElement).toBeInTheDocument();
 });

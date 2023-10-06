@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Query from '.';
+import QueryCalHeatmapWeekdayXDay from '.';
 import {
   BrowserRouter,
   Routes,
@@ -7,14 +7,14 @@ import {
   Outlet
 } from 'react-router-dom';
 
-test('renders Query', () => {
+test('renders QueryCalHeatmapWeekdayXDay', () => {
   render(<BrowserRouter>
     <Routes>
       <Route path="/" element={<Outlet context={{ queryString: '' }} />}>
-        <Route index element={<Query />} />
+        <Route index element={<QueryCalHeatmapWeekdayXDay />} />
       </Route>
     </Routes>
   </BrowserRouter>);
-  const linkElement = screen.getByText(/Query/i);
+  const linkElement = screen.getByText(/QueryCalHeatmapWeekdayXDay/i);
   expect(linkElement).toBeInTheDocument();
 });
