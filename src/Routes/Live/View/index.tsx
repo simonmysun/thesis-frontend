@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as mqtt from 'mqtt/dist/mqtt';
+import { toast } from 'react-toastify';
 
 import './style.css';
 import { Heatmap, OrderedList } from './../../../Components';
@@ -44,16 +45,17 @@ function LiveView() {
       // console.log('client not found');
     } else {
       client.on('connect', () => {
-        // console.log(`[mqtt] connected`);
+        toast.info(`Connected to server successfully`);
         setConnectStatus('Connected');
       });
       client.on('error', (err: Error) => {
         console.error('Connection error: ', err);
+        toast.error(`Connection error: ${err}`);
         client.end();
       });
       client.on('reconnect', () => {
-        // console.log(`[mqtt] reconnecting`);
         setConnectStatus('Reconnecting');
+        toast.info(`Reconnecting`);
       });
       client.on('message', (topic: string, payload: object) => {
         if(topic !== `tele/indoor_sound_classification/${deviceId}/state`) {
