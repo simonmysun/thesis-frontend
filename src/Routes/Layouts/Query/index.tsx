@@ -60,14 +60,6 @@ function LayoutQuery() {
   return (
     <div>
       <span className="hidden">App layout query</span>
-      <div className="btn-group" role="group" aria-label="query type buttons">
-        <NavLink to="/query/status-timeline" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Status Timeline</NavLink>
-        <NavLink to="/query/calendar-hour-day" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Heatmap (hour x day)</NavLink>
-        <NavLink to="/query/calendar-weekday-day" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Heatmap (weekday x day)</NavLink>
-        <NavLink to="/query/hourly-heatmap" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Heatmap (hourly)</NavLink>
-        <NavLink to="/query/line-chart" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Line Chart</NavLink>
-        <NavLink to="/query/all" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>All</NavLink>
-      </div>
       <div className='scroll-container'>
         <div className='stick-top row'>
           <div className='col-md-4 col-sm-12'>
@@ -113,6 +105,14 @@ function LayoutQuery() {
               <input type='text' className='form-control' id='time-range' placeholder='' value={`From ${rangeFrom.format()} to ${rangeTo.format()}`} readOnly={true} />
             </DateTimeRangeContainer>
           </div>
+        </div>
+        <div className="btn-group" role="group" aria-label="query type buttons">
+          <NavLink to="/query/status-timeline" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Status Timeline</NavLink>
+          <NavLink to="/query/calendar-hour-day" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Heatmap (hour x day)</NavLink>
+          <NavLink to="/query/calendar-weekday-day" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Heatmap (weekday x day)</NavLink>
+          <NavLink to="/query/hourly-heatmap" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Heatmap (hourly)</NavLink>
+          <NavLink to="/query/line-chart" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Line Chart</NavLink>
+          <NavLink to="/query/all" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>All</NavLink>
         </div>
         <Outlet context={ { queryString: `${prefix}?orgId=${orgId}&from=${rangeFrom.valueOf()}&to=${rangeTo.valueOf()}&refresh=${refresh}${(SelectedDevices.length > 0 ? SelectedDevices.map(option => option.name) : ['All']).map(id => `&var-device_id=${id}`).join('')}${(SelectedTags.length > 0 ? SelectedTags.map(option => option.name) : ['All']).map( tag => `&var-tag=${tag}`).join('')}` } }/>
       </div>
