@@ -21,8 +21,8 @@ function Heatmap(props: {
     setOuterHeight(componentRef.current!.parentElement!.offsetHeight);
   }, [componentRef]);
   const [d3svg, setD3svg] = useState<d3.Selection<SVGElement, unknown, null, undefined>>(d3.select(componentRef.current as SVGElement));
-  const [d3X, setD3X] = useState(() => d3.scaleLinear());
-  const [d3Y, setD3Y] = useState(() => d3.scaleBand());
+  const [d3X] = useState(() => d3.scaleLinear());
+  const [d3Y] = useState(() => d3.scaleBand());
   const [d3$X, setD3$X] = useState<d3.Selection<SVGGElement, unknown, null, undefined>>();
   const [d3$Y, setD3$Y] = useState<d3.Selection<SVGGElement, unknown, null, undefined>>();
   const [d3$Vis, setD3$Vis] = useState<d3.Selection<SVGGElement, unknown, null, undefined>>();
@@ -65,7 +65,7 @@ function Heatmap(props: {
       .attr('class', 'y axis')
       .attr('transform', `translate(${outerWidth - margin.left - margin.right + 3}, 0)`));
     setD3$Vis(d3svg.append('g').attr('class', 'heat-group'));
-  }, [outerWidth, outerHeight, componentUpdated, documentVisible]);
+  }, [outerWidth, outerHeight, componentUpdated, documentVisible]);  // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     stats.begin();
     if (outerHeight > 0 && outerWidth > 0) {
