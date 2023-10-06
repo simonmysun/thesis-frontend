@@ -53,15 +53,15 @@ function Heatmap(props: {
     d3Y.range([outerHeight - margin.top - margin.bottom, 0]);
     d3svg.selectAll('*').remove();
     d3svg.append('rect')
-    .attr('width', outerWidth - margin.left - margin.right)
-    .attr('height', outerHeight - margin.top - margin.bottom)
-    .attr('fill', '#000');
+      .attr('width', outerWidth - margin.left - margin.right)
+      .attr('height', outerHeight - margin.top - margin.bottom)
+      .attr('fill', '#222');
     setD3$X(d3svg.append('g')
-    .attr('class', 'x axis')
-    .attr('transform', `translate(0, ${outerHeight - margin.top - margin.bottom + 1})`));
+      .attr('class', 'x axis')
+      .attr('transform', `translate(0, ${outerHeight - margin.top - margin.bottom + 1})`));
     setD3$Y(d3svg.append('g')
-    .attr('class', 'y axis')
-    .attr('transform', `translate(${outerWidth - margin.left - margin.right + 3}, 0)`));
+      .attr('class', 'y axis')
+      .attr('transform', `translate(${outerWidth - margin.left - margin.right + 3}, 0)`));
     setD3$Vis(d3svg.append('g').attr('class', 'heat-group'));
   }, [outerWidth, outerHeight, componentUpdated]);
   useEffect(() => {
@@ -80,13 +80,22 @@ function Heatmap(props: {
         d3Y.domain(d3.map(currentData, d => d.tag));
         const yAxis = d3.axisRight(d3Y).tickSize(0);
         d3$Y?.call(yAxis);
+        d3svg.selectAll("g.y.axis g.tick")
+          .append("line")
+          .attr("class", "gridline")
+          .attr("x1", - outerWidth + margin.left + margin.right)
+          .attr("y1", 0)
+          .attr("x2", -10)
+          .attr("y2", 0)
+          .attr("stroke", "#000")
+          .attr("stroke-width", d3Y.bandwidth() - 2);
         d3$Vis?.selectAll().data(newData.filter(x => x !== undefined))
           .enter()
           .append('rect')
           .attr('class', 'heat')
           .attr('x', d => d3X(new Date().getDate() - new Date(d.timestamp).getDate()) - outerWidth / 60 * sampleRate / 1000 * 0.2)
           .attr('y', d => d3Y(d.tag)!)
-          .attr('width', outerWidth / 60 * sampleRate / 1000 * 1.2)
+          .attr('width', outerWidth / 60 * sampleRate / 1000 * 1.1 + 5)
           .attr('height', d3Y.bandwidth())
           .style('fill', d => d3.scaleSequential()
             .interpolator(d3.interpolateInferno)
@@ -104,7 +113,7 @@ function Heatmap(props: {
   }, [currentData, newData, outerWidth, outerHeight, connectStatus, stats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <svg ref={ componentRef } width={ outerWidth } height={ outerHeight } role="img" />
+    <svg ref={componentRef} width={outerWidth} height={outerHeight} role="img" />
   );
 }
 
