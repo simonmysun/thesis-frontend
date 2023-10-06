@@ -42,22 +42,22 @@ function Layout() {
             <div className={"position-sticky pt-3 sidebar-sticky"}>
               <ul className={"nav flex-column"}>
                 <li className={"nav-item"}>
-                  <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} end><i className={"bi bi-house-fill"}></i> Home</NavLink>
+                  <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} end><i className={"bi bi-house-fill"}></i>&nbsp;&nbsp;Home</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                  <NavLink to="/live" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-display"}></i> Watch Live Data</NavLink>
+                  <NavLink to="/live" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-display"}></i>&nbsp;&nbsp;Watch Live Data</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                  <NavLink to="/device" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-router"}></i> Manage Devices</NavLink>
+                  <NavLink to="/device" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-router"}></i>&nbsp;&nbsp;Manage Devices</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                  <NavLink to="/alert" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-house-fill"}></i> Manage Alerts</NavLink>
+                  <NavLink to="/alert" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-house-fill"}></i>&nbsp;&nbsp;Manage Alerts</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                  <NavLink to="/query" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-database"}></i> Query Historical Data</NavLink>
+                  <NavLink to="/query" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-database"}></i>&nbsp;&nbsp;Query Historical Data</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                  <NavLink to="/settings" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-sliders"}></i> Settings</NavLink>
+                  <NavLink to="/settings" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}><i className={"bi bi-sliders"}></i>&nbsp;&nbsp;Settings</NavLink>
                 </li>
               </ul>
             </div>
