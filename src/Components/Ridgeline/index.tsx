@@ -7,6 +7,7 @@ const overlap = 4;
 
 function Ridgeline(props: {
   currentData: VisDatum[],
+  newData: VisDatum[],
   connectStatus: string,
   sampleRate: number
 }) {
@@ -27,7 +28,7 @@ function Ridgeline(props: {
     }
   }, [componentRef, handleResize]);
   const [stats] = useState(new Stats());
-  const margin = { top: 60, right: 125, bottom: 25, left: -15 };
+  const margin = { top: 80, right: 120, bottom: 30, left: 0 };
   useEffect(() => {
     stats.dom.style.cssText = 'position: absolute; bottom: 0px; left: 0px; z-index: 100000';
     stats.showPanel(1);
@@ -67,7 +68,7 @@ function Ridgeline(props: {
           }
         }
         const x = d3.scaleTime()
-          .domain(([new Date(new Date().getTime() - 60 * sampleRate), new Date()]))
+          .domain(([new Date(new Date().getTime() - 60 * 1000), new Date()]))
           .range([margin.left, outerWidth - margin.right]);
         const y = d3.scalePoint()
           .domain(data.map(d => d.tag))
@@ -128,7 +129,7 @@ function Ridgeline(props: {
     stats.end();
   }, [currentData, outerWidth, outerHeight, connectStatus, stats]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <svg ref={ componentRef } width={ outerWidth } height={ outerHeight } role="img" />
+    <svg ref={componentRef} width={outerWidth} height={outerHeight} role="img" />
   );
 }
 
