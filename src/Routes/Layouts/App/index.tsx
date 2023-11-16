@@ -71,8 +71,8 @@ function Layout() {
                 <Link to="/">Back to home</Link>
               </p>
               <p>     </p>
-              <p className={"mb-1"}>Lorem ipsum dolor sit amet, consectetur adipiscing &copy; elit, quis nostrud exercitation.</p>
-              <p className={"mb-0"}>Sed do eiusmod tempor <Link to=".">incididunt</Link> ut labore et <Link to=".">dolore magna aliqua</Link> Ut enim ad minim veniam,</p>
+              <p className={"mb-1"}>Discover the power of acoustic event classification. User-friendly, scalable, and robust. </p>
+              <p className={"mb-0"}>For support, contact <Link to="mailto:simonmysun@gmail.com">simonmysun@gmail.com</Link>. &copy; <Link to="https://maoyin.eu">Maoyin Sun</Link>. Stay tuned for more innovations in audio technology from <Link to="https://www.tu-chemnitz.de/informatik/mc/index.php.en">TU Chemnitz</Link>. </p>
             </div>
           </footer>
         </div>
