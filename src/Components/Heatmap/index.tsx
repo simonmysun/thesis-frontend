@@ -35,7 +35,7 @@ function Heatmap(props: {
     }
   }, [componentRef, handleResize]);
   const [stats] = useState(new Stats());
-  const margin = { top: 80, right: 25, bottom: 30, left: 40 };
+  const margin = { top: 80, right: 75, bottom: 30, left: 40 };
   useEffect(() => {
     stats.dom.style.cssText = 'position: absolute; bottom: 0px; left: 0px; z-index: 100000';
     stats.showPanel(1);
