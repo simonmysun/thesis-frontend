@@ -149,6 +149,8 @@ function LiveList() {
           </Link>
         ))}
       </div>
+      <p></p>
+      <p><Link to={`/device/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add a new device</Link></p>
     </div>
   );
 }
