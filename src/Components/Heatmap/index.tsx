@@ -52,6 +52,7 @@ function Heatmap(props: {
   }, [componentRef]);
   useEffect(() => {
     d3X.range([0, outerWidth - margin.left - margin.right - outerWidth / 60]);
+    d3X.domain([-60, 0]);
     d3Y.range([outerHeight - margin.top - margin.bottom, 0]);
     d3svg.selectAll('*').remove();
     d3svg.append('rect')
@@ -73,25 +74,29 @@ function Heatmap(props: {
       if (connectStatus === 'Disconnected') {
         d3svg.append('text').text('Cannot establish connection to the stream server');
       } else {
-        d3X.domain([-60, 0]);
-        const xAxis = d3.axisBottom(d3X).tickFormat(t => `${t}s`);
-        d3$X?.call(xAxis)
-          .selectAll('text')
-          .attr('transform', 'translate(0, 5)')
-          .style('text-anchor', 'start');
-        d3Y.domain(d3.map(currentData, d => d.tag));
+        if (d3svg.selectAll('.x-axis-text').size() == 0) {
+          const xAxis = d3.axisBottom(d3X).tickFormat(t => `${t}s`);
+          d3$X?.call(xAxis)
+            .selectAll('text')
+            .attr('class', 'x-axis-text')
+            .attr('transform', 'translate(0, 5)')
+            .style('text-anchor', 'start');
+        }
         const yAxis = d3.axisRight(d3Y).tickSize(0);
         d3$Y?.call(yAxis);
-        d3svg.selectAll("g.y.axis g.tick")
-          .append("line")
-          .attr("class", "gridline")
-          .attr("x1", - outerWidth + margin.left + margin.right)
-          .attr("y1", 0)
-          .attr("x2", -3)
-          .attr("y2", 0)
-          .attr("stroke", "#000")
-          .attr("stroke-width", d3Y.bandwidth() - 2);
-        d3$Vis?.selectAll().data(newData.filter(x => x !== undefined))
+        if (d3svg.selectAll('.gridline').size() == 0) {
+          d3Y.domain(d3.map(currentData, d => d.tag));
+          d3svg.selectAll("g.y.axis g.tick")
+            .append("line")
+            .attr("class", "gridline")
+            .attr("x1", - outerWidth + margin.left + margin.right)
+            .attr("y1", 0)
+            .attr("x2", -3)
+            .attr("y2", 0)
+            .attr("stroke", "#000")
+            .attr("stroke-width", d3Y.bandwidth() - 2);
+        }
+        d3$Vis?.selectAll().data(newData.filter(x => x !== undefined && x.value > 0.05))
           .enter()
           .append('rect')
           .attr('class', 'heat')
