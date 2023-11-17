@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as mqtt from 'mqtt/dist/mqtt';
+import { toast } from 'react-toastify';
 import './style.css';
 
 import { backendApi, mqttApi } from './../../../API';
@@ -33,6 +34,7 @@ function LiveList() {
   }, []);
   useEffect(() => {
     setConnectStatus('Connecting');
+    toast.info(`connecting`);
     const settings = mqttApi.getSettings();
     const mqttOption = {
       clean: true,
@@ -45,6 +47,7 @@ function LiveList() {
     return () => {
       if (client === null) {
       } else {
+        toast.info(`Disconnected`);
         client.end();
       }
     };
@@ -54,13 +57,16 @@ function LiveList() {
     } else {
       client.on('connect', () => {
         setConnectStatus('Connected');
+        toast.info(`Connected`);
       });
       client.on('error', (err: Error) => {
         console.error(err);
+        toast.info(`Connection error`);
         client.end();
       });
       client.on('reconnect', () => {
         setConnectStatus('Reconnecting');
+        toast.info(`Reconnecting`);
       });
       client.on('message', (topic: string, payload: object) => {
         const match = topic.match(/tele\/indoor_sound_classification\/(?<deviceId>.+)\/state/);
