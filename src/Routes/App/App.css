@@ -1,0 +1,29 @@
+.square:before {
+  content: "";
+  display: block;
+  padding-top: 30%;
+  /* initial ratio of 1:1*/
+}
+
+.card {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175), inset 0 -20rem 10rem -15rem rgba(0, 0, 0, .95) !important;
+}
+
+.text-shadow-1 {
+  text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .75);
+}
+
+.text-shadow-2 {
+  text-shadow: 0 .25rem .5rem rgba(0, 0, 0, .5);
+}
+
+.text-shadow-3 {
+  text-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .5);
+}
+
+.heading {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
