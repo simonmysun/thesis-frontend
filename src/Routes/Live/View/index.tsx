@@ -65,7 +65,6 @@ function LiveView() {
         const message = JSON.parse(payload.toString());
         const timestamp: Date = message.timestamp;
         setSampleRate(message.sampleRate);
-        const sampleRate = message.sampleRate;
         const updates = Object.keys(message.prediction).map((tag: string) => ({ tag: tag, timestamp: timestamp, value: message.prediction[tag] } as VisDatum));
         updateNewData(updates);
         updateData((prevData: VisDatum[]): VisDatum[] => {
