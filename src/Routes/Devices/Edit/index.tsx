@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { backendApi } from './../../../API';
@@ -89,6 +89,7 @@ function DeviceEdit() {
         <label htmlFor="device-Comment" className="form-label">Comment</label>
       </div>
       <button type="button" className="btn btn-success mt-3" onClick={saveDevice} disabled={locked}><i className="bi bi-check-lg"></i> Save</button>
+      &nbsp;<Link to={`/device/`} type="button" className=""><button type="button" className="btn mt-3"> Back</button></Link>
     </div>
   );
 }

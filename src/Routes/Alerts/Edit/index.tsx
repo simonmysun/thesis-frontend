@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import './style.css';
@@ -139,6 +139,7 @@ function AlertEdit() {
         <label htmlFor="alert-annotations-description" className="form-label">Description</label>
       </div>
       <button type="button" className="btn btn-success mt-3" onClick={saveAlert} disabled={locked}><i className="bi bi-check-lg"></i> Save</button>
+      &nbsp;<Link to={`/alert/`} type="button" className=""><button type="button" className="btn mt-3"> Back</button></Link>
     </div>
   );
 }
