@@ -74,7 +74,7 @@ function Heatmap(props: {
       if (connectStatus === 'Disconnected') {
         d3svg.append('text').text('Cannot establish connection to the stream server');
       } else {
-        if (d3svg.selectAll('.x-axis-text').size() == 0) {
+        if (d3svg.selectAll('.x-axis-text').size() === 0) {
           const xAxis = d3.axisBottom(d3X).tickFormat(t => `${t}s`);
           d3$X?.call(xAxis)
             .selectAll('text')
@@ -84,7 +84,7 @@ function Heatmap(props: {
         }
         const yAxis = d3.axisRight(d3Y).tickSize(0);
         d3$Y?.call(yAxis);
-        if (d3svg.selectAll('.gridline').size() == 0) {
+        if (d3svg.selectAll('.gridline').size() === 0) {
           d3Y.domain(d3.map(currentData, d => d.tag));
           d3svg.selectAll("g.y.axis g.tick")
             .append("line")
