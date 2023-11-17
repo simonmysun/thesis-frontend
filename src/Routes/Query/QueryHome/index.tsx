@@ -49,7 +49,7 @@ function QueryHome() {
           visualizations.map(card =>
             <NavLink to={card.link} className={"text-decoration-none"} end>
               <div className={"col"} key={card.title}>
-                <div className={"album py-5"}>
+                <div className={"album py-2"}>
                   <div className={"container"}>
                     <div className="card card-cover h-100 overflow-hidden text-bg-dark rounded-4" style={{ backgroundImage: `url('/img/${card.imgUrl}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}>
                       <div className="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-2 square">

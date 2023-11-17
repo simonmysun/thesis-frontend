@@ -17,8 +17,9 @@
 .stick-top>div {
   padding-bottom: 0.5em;
 }
+
 .non-stick-top {
-  height: 100%;
+  height: calc(100% - 3.5em);
   width: 100%;
   padding-top: 1em;
   overflow-x: hidden;

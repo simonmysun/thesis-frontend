@@ -27,3 +27,8 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.heading .lead,
+.heading h1 {
+  text-shadow: 0 .125rem .25rem rgb(255, 255, 255);
+}
