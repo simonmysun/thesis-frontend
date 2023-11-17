@@ -127,6 +127,15 @@ const backendApi = {
       return response;
     }).then(res => res.json()),
   },
+  reloadAlertManager: () => fetch('/api/reload').then(function (response) {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return new Promise<string>(resolve => resolve('Success!'));
+  }).catch(err => {
+    console.log(err);
+    return new Promise<string>((_, reject) => reject('Failed!'));
+  })
 };
 
 const grafanaApi = {

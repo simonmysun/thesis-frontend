@@ -8,6 +8,7 @@ import './style.css';
 
 function AlertList() {
   const [alertList, setAlertList] = useState<AlertObject[]>([]);
+  const [locked, setLocked] = useState<boolean>(false);
   useEffect(() => {
     backendApi.alerts.list().then(res => {
       setAlertList(res);
@@ -17,6 +18,39 @@ function AlertList() {
     backendApi.alerts.delete(alertId);
     setAlertList(prevState => prevState.filter(alert => alert.name !== alertId));
     toast.success(`Alert ${alertId} deleted. `);
+  };
+
+  const reloadAlertManager = () => {
+    setLocked(true);
+    toast.promise(
+      new Promise<string>((resolve, reject) => {
+        backendApi.reloadAlertManager().then(res => resolve(res as string)).catch(err => reject(err));
+      }),
+      {
+        pending: {
+          render() {
+            return "Pending"
+          },
+          icon: '🔵',
+        },
+        success: {
+          render({ data }) {
+            return `${data}`;
+          },
+          icon: '🟢',
+        },
+        error: {
+          render({ data }) {
+            // When the promise reject, data will contains the error
+            return `${data}`;
+          },
+          icon: '🔴',
+        }
+      }
+    ).catch((e) => {
+      console.log('fff', e);
+      setLocked(false);
+    });
   };
   return (
     <div>
@@ -47,6 +81,7 @@ function AlertList() {
         </tbody>
       </table>
       <Link to={`/alert/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add a new alert</Link>
+      &nbsp;<button type="button" className="btn btn-primary" onClick={reloadAlertManager} disabled={locked}><i className="bi bi-arrow-clockwise"></i> Reload Alert Manager</button>
     </div>
   );
 }
