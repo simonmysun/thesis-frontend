@@ -34,7 +34,7 @@ function LiveList() {
   }, []);
   useEffect(() => {
     setConnectStatus('Connecting');
-    toast.info(`connecting`);
+    // toast.info(`connecting`);
     const settings = mqttApi.getSettings();
     const mqttOption = {
       clean: true,
@@ -47,7 +47,7 @@ function LiveList() {
     return () => {
       if (client === null) {
       } else {
-        toast.info(`Disconnected`);
+        // toast.info(`Disconnected`);
         client.end();
       }
     };
@@ -57,11 +57,11 @@ function LiveList() {
     } else {
       client.on('connect', () => {
         setConnectStatus('Connected');
-        toast.info(`Connected`);
+        // toast.info(`Connected`);
       });
       client.on('error', (err: Error) => {
         console.error(err);
-        toast.info(`Connection error`);
+        toast.error(`Connection error`);
         client.end();
       });
       client.on('reconnect', () => {
