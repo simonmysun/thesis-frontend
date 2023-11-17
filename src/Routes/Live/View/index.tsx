@@ -4,7 +4,7 @@ import * as mqtt from 'mqtt/dist/mqtt';
 import { toast } from 'react-toastify';
 
 import './style.css';
-import { Heatmap, OrderedList } from './../../../Components';
+import { Heatmap, Ridgeline, OrderedList } from './../../../Components';
 
 import { mqttApi } from './../../../API';
 
@@ -35,6 +35,7 @@ function LiveView() {
         // console.log('client not found');
       } else {
         // console.log('[mqtt] disconnect');
+        toast.info(`Disconnected from live server`);
         client.end();
       }
     };
@@ -68,7 +69,7 @@ function LiveView() {
         const updates = Object.keys(message.prediction).map((tag: string) => ({ tag: tag, timestamp: timestamp, value: message.prediction[tag] } as VisDatum));
         updateNewData(updates);
         updateData((prevData: VisDatum[]): VisDatum[] => {
-          return [...prevData.filter(d => d.timestamp > new Date((new Date(Date.now()).getTime() - sampleRate * 60))), ...updates];
+          return [...prevData.filter(d => d.timestamp > new Date((new Date(Date.now()).getTime() - 1000))), ...updates];
         });
       });
     }
@@ -111,9 +112,10 @@ function LiveView() {
       <hr />
       <div className="col col-md-7 col-sm-12 heatmap-container">
         <Heatmap key={deviceId} currentData={currentData} newData={newData} connectStatus={connectStatus} sampleRate={sampleRate} />
+        {/*<Ridgeline key={deviceId} currentData={currentData} newData={[]} connectStatus={connectStatus} sampleRate={sampleRate} />*/}
       </div>
       <div className="col col-md-5 col-sm-12">
-        <OrderedList list={newData} />
+        <OrderedList list={newData} sampleRate={sampleRate} />
       </div>
     </div>
   );
