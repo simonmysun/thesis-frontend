@@ -26,11 +26,12 @@ import DeviceList from './Routes/Devices/List';
 import DeviceEdit from './Routes/Devices/Edit';
 import AlertList from './Routes/Alerts/List';
 import AlertEdit from './Routes/Alerts/Edit';
-import QueryStatusTimeline from './Routes/QueryStatusTimeline';
-import QueryCalHeatmapHourXDay from './Routes/QueryCalHeatmapHourXDay';
-import QueryCalHeatmapWeekdayXDay from './Routes/QueryCalHeatmapWeekdayXDay';
-import QueryHourlyHeatmap from './Routes/QueryHourlyHeatmap';
-import QueryPrediction from './Routes/QueryPrediction';
+import QueryStatusTimeline from './Routes/Query/QueryStatusTimeline';
+import QueryCalHeatmapHourXDay from './Routes/Query/QueryCalHeatmapHourXDay';
+import QueryCalHeatmapWeekdayXDay from './Routes/Query/QueryCalHeatmapWeekdayXDay';
+import QueryHourlyHeatmap from './Routes/Query/QueryHourlyHeatmap';
+import QueryPrediction from './Routes/Query/QueryPrediction';
+import QueryHome from './Routes/Query/QueryHome';
 import Query from './Routes/Query';
 import Settings from './Routes/Settings';
 
@@ -53,6 +54,7 @@ const router = createHashRouter(
                 <Route path=":alertId" element={<AlertEdit />} />
             </Route>
             <Route path="query" element={<LayoutQuery />}>
+                <Route index element={<QueryHome />} />
                 <Route path="status-timeline" element={<QueryStatusTimeline />} />
                 <Route path="calendar-hour-day" element={<QueryCalHeatmapHourXDay />} />
                 <Route path="calendar-weekday-day" element={<QueryCalHeatmapWeekdayXDay />} />
@@ -64,7 +66,7 @@ const router = createHashRouter(
                 <Route index element={<Settings />} />
                 <Route path=":query" element={<Settings />} />
             </Route>
-            <Route path="logout" element={<Navigate to="/" replace />}/>
+            <Route path="logout" element={<Navigate to="/" replace />} />
             <Route path="*" element={<ErrorPage />} />
         </Route>
     )

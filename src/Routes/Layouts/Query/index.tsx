@@ -6,12 +6,9 @@ import {
   Outlet,
   NavLink,
 } from 'react-router-dom';
-import { backendApi, grafanaApi } from './../../../API';
+import { backendApi, grafanaApi, tagList } from './../../../API';
 
 import './style.css';
-
-const tagList = ['Alarmsignal', 'AstmaHusten', 'Blending', 'Bohren', 'CovidHusten', 'Doseöffnen', 'Electronic_Zahnbürste', 'Etwas-am-Boden-ziehen', 'Fenster', 'Feuerzeug', 'Flöte', 'Fußstapfen-gehen', 'GesunderHusten', 'Gitarre', 'Glas', 'Haartrockner', 'Hahn', 'Handsäge', 'Huhn', 'Hund', 'Katze', 'Klarinette', 'Klassenname', 'klatschen', 'Klingelton', 'Küssen', 'Lachen', 'Mausklick', 'Metall-auf-Metall', 'Möbelrücken', 'Niesen', 'Pfeifen', 'Presslufthammer', 'Ruhe', 'Schlag', 'Schlagzeug', 'Schnarchen', 'Sirene', 'Sitar', 'SprechendeFrau', 'SprechenderMann', 'Staubsauger', 'Tastatur-tippen', 'Toilettenspülung', 'Trampler', 'Trinken', 'Türklingel', 'Türklopfen', 'Uhr-ticken', 'Vandalismus', 'Waschmaschine', 'Wasser', 'Weinen', 'Wimmern', 'Wind', 'Zahnbürste', 'Zerbrechen', 'ZwitscherndeVögel'];
-
 
 function LayoutQuery() {
   const [deviceList, setDeviceList] = useState<DeviceObject[]>([]);
@@ -29,10 +26,10 @@ function LayoutQuery() {
   const refresh = '30s';
   const updateSelectedDevices = (selectedList: any, selectedItem: any) => {
     setSelectedDevices(selectedList);
-  }
+  };
   const updateSelectedTags = (selectedList: any, selectedItem: any) => {
     setSelectedTags(selectedList);
-  }
+  };
   let now = new Date();
   let dayStart = moment(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
   const [rangeFrom, setRangeFrom] = useState<Moment>(moment(now).subtract(15, 'minutes'));
@@ -76,7 +73,6 @@ function LayoutQuery() {
               loading={deviceListLoading}
               singleSelect={true}
               showArrow={true}
-              className='col-md-4 col-sm-12'
             />
           </div>
           <div className='col-md-4 col-sm-12'>
@@ -114,7 +110,7 @@ function LayoutQuery() {
           <NavLink to="/query/line-chart" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>Line Chart</NavLink>
           <NavLink to="/query/all" className={({ isActive }) => "query-type-link btn btn-outline-primary" + (isActive ? " active" : "")} end>All</NavLink>
         </div>
-        <Outlet context={ { queryString: `${prefix}?orgId=${orgId}&from=${rangeFrom.valueOf()}&to=${rangeTo.valueOf()}&refresh=${refresh}${(SelectedDevices.length > 0 ? SelectedDevices.map(option => option.name) : ['All']).map(id => `&var-device_id=${id}`).join('')}${(SelectedTags.length > 0 ? SelectedTags.map(option => option.name) : ['All']).map( tag => `&var-tag=${tag}`).join('')}` } }/>
+        <Outlet context={{ queryString: `${prefix}?orgId=${orgId}&from=${rangeFrom.valueOf()}&to=${rangeTo.valueOf()}&refresh=${refresh}${(SelectedDevices.length > 0 ? SelectedDevices.map(option => option.name) : ['All']).map(id => `&var-device_id=${id}`).join('')}${(SelectedTags.length > 0 ? SelectedTags.map(option => option.name) : ['All']).map(tag => `&var-tag=${tag}`).join('')}` }} />
       </div>
     </div>
   );

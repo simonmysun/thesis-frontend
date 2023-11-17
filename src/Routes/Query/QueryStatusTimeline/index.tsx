@@ -1,12 +1,12 @@
 import { useOutletContext } from 'react-router-dom';
 import {
   StatusTimeline,
-} from './../../Components';
+} from './../../../Components';
 
 import './style.css';
 
 function QueryStatusTimeline() {
-  const { queryString } : { queryString: string } = useOutletContext();
+  const { queryString }: { queryString: string } = useOutletContext();
   return (
     <div className='non-stick-top'>
       <span className="hidden">QueryStatusTimeline</span>
