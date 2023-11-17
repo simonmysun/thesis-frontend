@@ -32,16 +32,16 @@ function DeviceList() {
           </tr>
         </thead>
         <tbody>
-          { deviceList.map(device => (
-            <tr key={ device.name }>
-              <td><Link to={`/device/${device.name}`} style={ { color: 'inherit', textDecoration: 'inherit' } }>{ device.name }</Link></td>
-              <td>{ device.comment }</td>
+          {deviceList.map(device => (
+            <tr key={device.name}>
+              <td><Link to={`/device/${device.name}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>{device.name}</Link></td>
+              <td>{device.comment}</td>
               <td>
                 <Link to={`/device/${device.name}`} type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></Link>&nbsp;
-                <button type="button" className="btn btn-danger" onClick={ () => removeDevice(device.name) }><i className="bi bi-x-lg"></i></button>
+                <button type="button" className="btn btn-danger" onClick={() => removeDevice(device.name)}><i className="bi bi-x-lg"></i></button>
               </td>
             </tr>
-          )) }
+          ))}
         </tbody>
       </table>
       <Link to={`/device/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add a new device</Link>
