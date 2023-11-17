@@ -6,37 +6,37 @@ const visualizations = [
     title: 'Status Timeline',
     imgUrl: 'status-timeline.png',
     link: '/query/status-timeline',
-    content: ''
+    content: 'Track the evolution of statuses over time with our intuitive Status Timeline visualization.'
   },
   {
     title: 'Heatmap (hour x day)',
     imgUrl: 'calendar-hour-day-2.png',
     link: '/query/calendar-hour-day',
-    content: ''
+    content: 'Explore patterns in hourly data across days using our Heatmap visualization.'
   },
   {
     title: 'Heatmap (weekday x day)',
     imgUrl: 'calendar-weekday-day.png',
     link: '/query/calendar-weekday-day',
-    content: ''
+    content: 'Dive into insights based on weekdays and days through our Heatmap visualization.'
   },
   {
     title: 'Heatmap (hourly)',
     imgUrl: 'hourly-heatmap-2.png',
     link: '/query/hourly-heatmap',
-    content: ''
+    content: 'Visualize hourly data trends with our dynamic Heatmap visualization.'
   },
   {
     title: 'Line Chart',
     imgUrl: 'line-chart.png',
     link: '/query/line-chart',
-    content: ''
+    content: 'Gain a clear understanding of data trends with our interactive Line Chart visualization.'
   },
   {
     title: 'All in one',
     imgUrl: 'all-vis.png',
     link: '/query/all',
-    content: ''
+    content: 'Experience the convenience of viewing all visualizations in one comprehensive display.'
   },
 ];
 
