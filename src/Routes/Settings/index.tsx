@@ -16,7 +16,7 @@ function Settings() {
       setSettings(JSON.parse(stored));
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const updateSettings = function() {
+  const updateSettings = function () {
     setSettings({
       mqttUrl: (document.querySelector('#mqtt-url') as HTMLInputElement).value,
       mqttUsername: (document.querySelector('#mqtt-username') as HTMLInputElement).value,
@@ -33,15 +33,15 @@ function Settings() {
       <span className="hidden">App Settings</span>
       <h2>Settings</h2>
       <div className="mt-3 form-floating">
-        <input type="text" className="form-control" id="mqtt-url" placeholder="/mqtt" value={ settings.mqttUrl } onChange={updateSettings}/>
+        <input type="text" className="form-control" id="mqtt-url" placeholder="/mqtt" value={settings.mqttUrl} onChange={updateSettings} />
         <label htmlFor="mqtt-url" className="form-label">MQTT Server URL</label>
       </div>
       <div className="mt-3 form-floating">
-        <input type="text" className="form-control" id="mqtt-username" placeholder="username" value={ settings.mqttUsername } onChange={updateSettings} />
+        <input type="text" className="form-control" id="mqtt-username" placeholder="username" value={settings.mqttUsername} onChange={updateSettings} />
         <label htmlFor="mqtt-username" className="form-label">MQTT Username</label>
       </div>
       <div className="mt-3 form-floating">
-        <input type="password" className="form-control" id="mqtt-password" placeholder="************" value={ settings.mqttPassword } onChange={updateSettings} />
+        <input type="password" className="form-control" id="mqtt-password" placeholder="************" value={settings.mqttPassword} onChange={updateSettings} />
         <label htmlFor="mqtt-password" className="form-label">MQTT Password</label>
       </div>
     </div>

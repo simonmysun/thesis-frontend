@@ -7,9 +7,9 @@ function CalHeatmapWeekdayXDay(props: {
   const panelId = 26;
   const theme = 'light';
   const height = `${127 + 50}px`;
-  const { 
+  const {
     queryString
-   } = props;
+  } = props;
   return (
     <Iframe url={`${queryString}&theme=${theme}&panelId=${panelId}`}
       styles={{ position: 'relative', height: height, width: '100%' }} />

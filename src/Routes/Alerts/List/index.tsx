@@ -33,17 +33,17 @@ function AlertList() {
           </tr>
         </thead>
         <tbody>
-          { alertList.map(alert => (
-            <tr key={ alert.name }>
-              <td><Link to={`/alert/${alert.name}`} style={ { color: 'inherit', textDecoration: 'inherit' } }>{ alert.name }</Link></td>
-              <td>{ alert.comment }</td>
-              <td>{ alert.lastFired }</td>
+          {alertList.map(alert => (
+            <tr key={alert.name}>
+              <td><Link to={`/alert/${alert.name}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>{alert.name}</Link></td>
+              <td>{alert.comment}</td>
+              <td>{alert.lastFired}</td>
               <td>
                 <Link to={`/alert/${alert.name}`} type="button" className="btn btn-primary"><i className="bi bi-pencil"></i></Link>&nbsp;
-                <button type="button" className="btn btn-danger" onClick={ () => removeAlert(alert.name) }><i className="bi bi-x-lg"></i></button>
+                <button type="button" className="btn btn-danger" onClick={() => removeAlert(alert.name)}><i className="bi bi-x-lg"></i></button>
               </td>
             </tr>
-          )) }
+          ))}
         </tbody>
       </table>
       <Link to={`/alert/__new`} type="button" className="btn btn-success"><i className="bi bi-plus"></i> Add a new alert</Link>

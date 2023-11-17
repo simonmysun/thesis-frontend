@@ -7,9 +7,9 @@ function HourlyHeatmap(props: {
   const panelId = 28;
   const theme = 'light';
   const height = `${600}px`;
-  const { 
+  const {
     queryString
-   } = props;
+  } = props;
   return (
     <Iframe url={`${queryString}&theme=${theme}&panelId=${panelId}`}
       styles={{ position: 'relative', height: height, width: '100%' }} />

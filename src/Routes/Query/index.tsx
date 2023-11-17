@@ -10,7 +10,7 @@ import {
 import './style.css';
 
 function Query() {
-  const { queryString } : { queryString: string } = useOutletContext();
+  const { queryString }: { queryString: string } = useOutletContext();
   return (
     <div className='non-stick-top'>
       <span className="hidden">Query</span>

@@ -1,5 +1,5 @@
-import { 
-  Outlet, 
+import {
+  Outlet,
 } from 'react-router-dom';
 import './style.css';
 
@@ -7,7 +7,7 @@ function LayoutSettings() {
   return (
     <div>
       <span className="hidden">App layout settings</span>
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }
