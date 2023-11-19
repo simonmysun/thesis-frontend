@@ -91,8 +91,8 @@ function App() {
               <h1 className={"fw-light"}>Live Views and Alerts for <br />Indoor Sound Classification</h1>
               <p className={"lead text-muted"}>Welcome to our web-based demonstration of an advanced Acoustic Event Classification model. Explore the robustness and efficiency of our model, designed for optimal usability and accessibility.</p>
               <p>
-                <Link to="/live" className={"btn btn-primary my-2"}>Goto Live View</Link>&nbsp;
-                <Link to="/device" className={"btn btn-secondary my-2"}>Add New Device</Link>
+                <Link to="/live" className={"btn btn-primary my-2"} role="button">Goto Live View</Link>&nbsp;
+                <Link to="/device" className={"btn btn-secondary my-2"} role="button">Add New Device</Link>
               </p>
             </div>
           </div>
@@ -106,7 +106,7 @@ function App() {
                 <div className={"container"}>
                   <div className="card card-cover h-100 overflow-hidden text-bg-dark rounded-4" style={{ backgroundImage: `url('/img/${card.imgUrl}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}>
                     <div className="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-2 square">
-                      <h3 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{card.title}</h3>
+                      <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{card.title}</h2>
                       <p className="text-shadow-1">{card.content}</p>
                     </div>
                   </div>

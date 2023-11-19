@@ -20,7 +20,7 @@ function Layout() {
         <input className={"form-control form-control-dark w-100 rounded-0 border-0"} type="text" placeholder="Command" aria-label="Command" />
         <div className={"navbar-nav"}>
           <div className={"nav-item text-nowrap"}>
-            <Link className={"nav-link px-3"} to="/logout">Exit</Link>
+            <Link className={"nav-link px-3 text-white"} to="/logout">Exit</Link>
           </div>
         </div>
       </header>
